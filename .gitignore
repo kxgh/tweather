@@ -1,2 +1,12 @@
 node_modules/
 .idea/
+dist/*.js
+dist/*.jpg
+dist/*.png
+dist/*.gif
+dist/*.ttf
+dist/*.woff
+dist/*.woff2
+dist/*.svg
+**/*.css
+**/*.map

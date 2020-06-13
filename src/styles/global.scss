@@ -1,0 +1,89 @@
+@use "base/vars";
+
+@import "base/vars";
+
+@import "vendor/reset";
+
+
+
+// mixins
+
+
+@import "../components/CityCompleter";
+
+/* ************************ */
+
+
+@font-face {
+  font-family: PTSans;
+  src: url("../assets/PTSans-Bold.ttf");
+}
+
+body {
+  background-color: vars.$color-bg;
+  color: vars.$color-primary;
+  font-size: 24px;
+  font-family: PTSans, sans-serif, serif;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2em 0;
+}
+
+.header {
+  border-bottom: .1em solid vars.$color-accent;
+  padding-bottom: .5em;
+}
+
+.header__search-bar {
+  //border-radius: 1em;
+  box-sizing: border-box;
+  padding: .5em 1em;
+  color: vars.$color-primary;
+  font-family: inherit;
+  font-size: 75%;
+  border: none;
+  outline: none;
+  background-color: vars.$color-bg-alt;
+  transition: .5s;
+}
+
+.header__search-bar:focus::placeholder{
+  color: vars.$color-primary-alt;
+}
+
+.header__search-bar::placeholder {
+  //background-color: deeppink;
+  color: vars.$color-primary;
+}
+
+/*.header {
+  width: 100%;
+  position: relative;
+  padding: 2em 0;
+
+  .header__app-name, .header__app-desc {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .header__pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("assets/pic.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 50em;
+    z-index: 1;
+  }
+}
+*/
