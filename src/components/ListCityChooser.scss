@@ -1,0 +1,54 @@
+@use "../styles/base/vars";
+
+$-color-bg: vars.$color-bg;
+$-color-border: vars.$color-bg-alt;
+$-color-font: vars.$color-primary;
+$-color-accent: vars.$color-accent;
+
+.city-chooser {
+  position: absolute;
+  //background-color: $-color-bg;
+  color: $-color-font;
+  font-size: 75%;
+  z-index: 2;
+  transition: opacity .5s;
+}
+
+.city-chooser--hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.city-chooser--shown {
+  visibility: visible;
+  //box-shadow: 0 0 1px 2px $-color-font;
+  opacity: 1;
+}
+
+.city-chooser__item {
+  padding: .5em;
+  cursor: pointer;
+  position: relative;
+  background-color: $-color-bg;
+  margin-bottom: .3em;
+  transition: .5s;
+  left: 0;
+  font-size: 100%;
+  border: 1px solid $-color-border;
+}
+
+.city-chooser__item__flag{
+  width: 1em;
+  height: auto;
+  margin-left: .5em;
+}
+
+.city-chooser__item:hover {
+  text-decoration: underline;
+}
+
+.city-chooser__item--browsed {
+  color: $-color-accent;
+  transform: scale(1.1);
+  border: 1px solid $-color-accent;
+}

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>t-weather</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedWeather | 5 day weather</title>
 </head>
 <body>
 <!--<header class="header">
@@ -12,14 +13,16 @@
 </header>-->
 <div class="content-wrapper">
     <header class="header">
-        <form role="search" autocomplete="off">
-            <input name="location" class="header__search-bar" type="text" id="search-bar" placeholder="Search for a location...">
+        <div class="header__sun"></div>
+        <h2 class="header__logo"><span class="header__logo--accent">Red</span>Weather</h2>
+        <form class="header__form" role="search" autocomplete="off">
+            <input name="location" class="header__search-bar" type="text" id="search-bar"
+                   placeholder="Search for a location...">
         </form>
     </header>
+    <main id="forecasts-display" class="forecasts">
+    </main>
 </div>
-<p>xferpfle rpflerp flrpf </p>
-<button id="xx">provide city</button>
-<button id="xx2">provide forecast</button>
 <script src="bundle.js"></script>
 </body>
 </html>

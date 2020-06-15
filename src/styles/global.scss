@@ -9,10 +9,16 @@
 // mixins
 
 
-@import "../components/CityCompleter";
+@import "../components/ListCityChooser";
+@import "../components/ForecastsHeader";
+@import "../components/ForecastsList";
+@import "../components/ForecastTile";
 
 /* ************************ */
 
+
+$-font-size: 24px;
+$-font-size-sm: 18px;
 
 @font-face {
   font-family: PTSans;
@@ -22,7 +28,7 @@
 body {
   background-color: vars.$color-bg;
   color: vars.$color-primary;
-  font-size: 24px;
+  font-size: $-font-size;
   font-family: PTSans, sans-serif, serif;
 }
 
@@ -36,6 +42,30 @@ body {
 .header {
   border-bottom: .1em solid vars.$color-accent;
   padding-bottom: .5em;
+  font-size: 100%;
+}
+
+.header__sun{
+  font-size: 200%;
+  border-radius: 50%;
+  background-color: vars.$color-accent;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.header__logo{
+  margin: 0 auto 1em auto;
+  font-size: 250%;
+  text-align: center;
+}
+
+.header__logo--accent{
+    color: vars.$color-accent;
+}
+
+.header__form{
+  position: relative;
 }
 
 .header__search-bar {
@@ -56,34 +86,11 @@ body {
 }
 
 .header__search-bar::placeholder {
-  //background-color: deeppink;
   color: vars.$color-primary;
 }
 
-/*.header {
-  width: 100%;
-  position: relative;
-  padding: 2em 0;
-
-  .header__app-name, .header__app-desc {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-
-  .header__pic {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    background-image: url("assets/pic.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: repeat;
-    background-size: 50em;
-    z-index: 1;
+@media (max-width: vars.$screen-small-w) {
+  body{
+    font-size: $-font-size-sm;
   }
 }
-*/

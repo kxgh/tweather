@@ -1,25 +1,25 @@
 import axios from "axios";
-import {Forecast, ForeCastData, ForecastReport} from "./Forecast";
+import {ForecastsProvider} from "./Forecast";
+import {ForecastGroup} from "./Forecast";
+import {ForecastReport} from "./ForecastReport";
 import {DayForecast} from "./DayForecast";
 
-export interface ForecastsProvider {
-    provide(cityId: number | string): Promise<Array<DayForecast>>
-}
+export class OWMForecastsProvider implements ForecastsProvider {
 
-export class OWMForecastsProvider implements ForecastsProvider{
-    private readonly url: string;
-
-    constructor(url: string) {
-        this.url = 'http://api.openweathermap.org/data/2.5/forecast?id=3069011&appid=314da1c8c5968a0ce3c6c2d12e90bce5';
+    constructor() {
     }
 
-    private assignRecsToDays(recs: Array<ForecastReport>): Array<DayForecast> {
+    private getUrl(cityId: string) {
+        return `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=314da1c8c5968a0ce3c6c2d12e90bce5`;
+    }
+
+    private assignRecsToDays(recs: Array<ForecastReport>, city: string, country: string): Array<ForecastGroup> {
         const days: Array<DayForecast> = [];
         for (let rec of recs) {
             const recDay: number = new Date(rec.timestamp).getDate();
             let fd: DayForecast | null = days.filter(d => d.forDay === recDay)[0];
             if (!fd) {
-                fd = new DayForecast(recDay);
+                fd = new DayForecast(recDay, city, country);
                 days.push(fd);
             }
             fd.insertForecast(rec);
@@ -27,12 +27,12 @@ export class OWMForecastsProvider implements ForecastsProvider{
         return days
     }
 
-    async provide(cityId: number | string): Promise<Array<DayForecast>> {
+    async provide(cityId: number | string): Promise<Array<ForecastGroup>> {
         try {
             cityId += '';
             console.log(cityId);
-            const resp: any = (await axios.get('sampleWeather.json')).data;
-            //const resp: any = (await axios.get(this.url)).data;
+            //const resp: any = (await axios.get('sampleWeather.json')).data;
+            const resp: any = (await axios.get(this.getUrl('' + cityId))).data;
             const recs: Array<ForecastReport> = resp.list.map((f: any) =>
                 new ForecastReport({
                     timestamp: f.dt,
@@ -44,7 +44,7 @@ export class OWMForecastsProvider implements ForecastsProvider{
                 })
             );
 
-            return this.assignRecsToDays(recs)
+            return this.assignRecsToDays(recs, resp.city.name, resp.city.country)
         } catch (e) {
             console.error(e);
             return [];

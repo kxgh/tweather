@@ -1,11 +1,16 @@
-import {ForecastReport} from "./Forecast";
+import {ForecastReport} from "./ForecastReport";
+import {ForecastGroup} from "./Forecast";
 
-export class DayForecast {
+export class DayForecast implements ForecastGroup{
     readonly forDay: number;
     private readonly records: Array<ForecastReport>;
+    private readonly forCountry: string;
+    private readonly forCity: string;
 
-    constructor(forDay: number) {
+    constructor(forDay: number, forCity: string, forCountry: string) {
         this.forDay = forDay;
+        this.forCity = forCity;
+        this.forCountry = forCountry;
         this.records = [];
     }
 
@@ -17,5 +22,13 @@ export class DayForecast {
 
     getForecasts(): Array<ForecastReport>{
         return this.records;
+    }
+
+    getCity(): string {
+        return this.forCity;
+    }
+
+    getCountry(): string {
+        return this.forCountry;
     }
 }

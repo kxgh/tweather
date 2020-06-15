@@ -1,54 +1,26 @@
-import {PackedCitiesProvider, CitiesProvider} from "./lib/CitiesProvider";
-import {OWMForecastsProvider, ForecastsProvider} from "./lib/ForecastsProvider";
+import {CitiesProvider} from "./lib/City";
+import {PackedCitiesProvider} from "./lib/PackedCitiesProvider";
+import {ForecastsProvider} from "./lib/Forecast";
+import {OWMForecastsProvider} from "./lib/OWMForecastsProvider";
+import {ListCityChooser} from "./components/ListCityChooser";
+import {CountryFlagsIOFlagProvider} from "./lib/CountryFlagsIOFlagURLProvider";
+import {ForecastDisplayer} from "./lib/ForecastDisplayer";
 import './styles/global.css';
 
 const citiesProvider: CitiesProvider = new PackedCitiesProvider();
-const forecastProvider: ForecastsProvider = new OWMForecastsProvider('x');
+const forecastProvider: ForecastsProvider = new OWMForecastsProvider();
 
-citiesProvider.preobtain().then(r=>{
+citiesProvider.preobtain().then(r => {
     console.log('done obtaining');
 });
 
 const searchBar: HTMLInputElement = document.getElementById('search-bar') as HTMLInputElement;
-searchBar.onkeydown = (e)=>{
-    if(e.key.toLowerCase() === 'enter'){
-        e.preventDefault();
-        console.log(citiesProvider.provide(searchBar.value))
-    }
-    console.log('yupi')
-    //console.log(citiesProvider.provide(inp.value));
-};
+const searchBarParent: HTMLElement = searchBar.parentElement!;
+const mainForecastsDisplay = document.getElementById('forecasts-display') as HTMLElement;
 
-
-const btn = document.getElementById('xx') as HTMLButtonElement;
-const btn2 = document.getElementById('xx2') as HTMLButtonElement;
-const inp = document.getElementById('xy') as HTMLInputElement;
-btn.onclick = ()=>{
-    console.log(citiesProvider.provide(inp.value));
-
-};
-btn2.onclick = async ()=>{
-    console.log(await forecastProvider.provide(43));
-};
-
-/*import {f} from "./dva";
-import './style.css';
-import './global.css';
-
-const x: HTMLElement = document.getElementById('xx')! as HTMLElement;
-console.log(x)
-x.addEventListener('click',function () {
-    console.log('ehhx x xx x ');
-    f();
-})
-
-function component() {
-    const element = document.createElement('div');
-
-    element.innerHTML = 'ej ou lec gou';
-    element.classList.add('hello');
-
-    return element;
-}*/
-
-//document.body.appendChild(component());
+const forecastDisplayer: ForecastDisplayer = new ForecastDisplayer(forecastProvider, mainForecastsDisplay);
+const cityChooser: ListCityChooser = new ListCityChooser(searchBar, citiesProvider);
+cityChooser.setFlagProvider(new CountryFlagsIOFlagProvider('small'));
+searchBarParent.appendChild(cityChooser.create());
+//cityChooser.attach(searchBarParent);
+cityChooser.addConsumer(forecastDisplayer);
