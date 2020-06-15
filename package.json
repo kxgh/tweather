@@ -1,11 +1,12 @@
 {
   "name": "tweather",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch",
-    "sass": "sass --watch ./src/"
+    "sass": "sass --watch ./src/",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",

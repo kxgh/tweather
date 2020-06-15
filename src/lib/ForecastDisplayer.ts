@@ -1,10 +1,8 @@
-import {CityConsumer} from "./City";
-import {ForecastsProvider} from "./Forecast";
-import {ForecastGroup} from "./Forecast";
+import {ForecastGroup, ForecastActionListener, ForecastsProvider} from "./Forecast";
 import {ForecastsHeader} from "../components/ForecastsHeader";
 import {ForecastsList} from "../components/ForecastsList";
 
-export class ForecastDisplayer implements CityConsumer {
+export class ForecastDisplayer implements ForecastActionListener {
     private readonly forecastsProvider: ForecastsProvider;
     private readonly main: HTMLElement;
 
@@ -13,10 +11,21 @@ export class ForecastDisplayer implements CityConsumer {
         this.main = mainForecastsDisplay;
     }
 
-    async consume(cityId: string): Promise<void> {
+    async onForecastByCityId(cityId: string): Promise<void> {
         this.clean();
-        const group: Array<ForecastGroup> = await this.forecastsProvider.provide(cityId);
+        const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCityId(cityId);
+        //const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(49.07008, 17.4686208);
         this.rebuild(group);
+    }
+
+    async onForecastByCoords(lat: string, lon: string): Promise<void> {
+        this.clean();
+        const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(lat,lon);
+        //const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(49.07008, 17.4686208);
+        this.rebuild(group);
+    }
+
+    async consume(cityId: string): Promise<void> {
     }
 
     private clean() {
@@ -31,9 +40,9 @@ export class ForecastDisplayer implements CityConsumer {
         frag.appendChild(new ForecastsList(group).create());
     }
 
-    private rebuild(group: Array<ForecastGroup>) {
+    private rebuild(group: Array<ForecastGroup>): boolean {
         if (!group.length)
-            return;
+            return false;
         this.clean();
         const frag: DocumentFragment = document.createDocumentFragment();
         this.buildHeader(frag, group[0].getCity());
@@ -43,6 +52,7 @@ export class ForecastDisplayer implements CityConsumer {
         //this.buildGroup(frag, group[0])
 
         this.main.appendChild(frag);
+        return true;
     }
 
 }

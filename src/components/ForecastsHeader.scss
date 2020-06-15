@@ -5,18 +5,30 @@
   background-color: vars.$color-accent;
   padding: .5em;
   color: vars.$color-bg;
-  animation: .5s tstsxx;
+  animation: .5s forecast-header-appear-anim;
+  cursor: pointer;
 }
 
 .forecasts__header-title {
-
+  position: relative;
+  left: 0;
+  animation: 1.5s forecast-header-title-appear-anim;
 }
 
 .forecasts__header-desc {
   font-size: 50%;
 }
 
-@keyframes tstsxx {
+@keyframes forecast-header-title-appear-anim {
+  from {
+    left: -10em;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes forecast-header-appear-anim {
   from {
     font-size: 1px;
   }
@@ -25,7 +37,7 @@
   }
 }
 
-@media (orientation: portrait){
+@media (orientation: portrait) {
   .forecasts__header {
     position: sticky;
     top: 0;

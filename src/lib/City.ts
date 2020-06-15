@@ -9,7 +9,3 @@ export interface CitiesProvider {
 
     provide(prefix: string): Array<City>;
 }
-
-export interface CityConsumer {
-    consume(cityId: string): any | Promise<any>;
-}

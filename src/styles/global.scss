@@ -4,18 +4,13 @@
 
 @import "vendor/reset";
 
-
-
-// mixins
-
-
 @import "../components/ListCityChooser";
 @import "../components/ForecastsHeader";
 @import "../components/ForecastsList";
 @import "../components/ForecastTile";
+@import "../components/CitySearchBar";
 
 /* ************************ */
-
 
 $-font-size: 24px;
 $-font-size-sm: 18px;
@@ -32,6 +27,26 @@ body {
   font-family: PTSans, sans-serif, serif;
 }
 
+.spinner {
+  left: -9999vw;
+  opacity: 0;
+  animation: 1s spinner-away;
+  background-color: unset;
+}
+
+@keyframes spinner-away {
+  0% {
+    left: 0;
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    left: 0;
+    top: -200vw;
+    opacity: 0;
+  }
+}
+
 .content-wrapper {
   width: 100%;
   max-width: 720px;
@@ -45,7 +60,7 @@ body {
   font-size: 100%;
 }
 
-.header__sun{
+.header__sun {
   font-size: 200%;
   border-radius: 50%;
   background-color: vars.$color-accent;
@@ -54,43 +69,22 @@ body {
   margin: 0 auto;
 }
 
-.header__logo{
+.header__logo {
   margin: 0 auto 1em auto;
   font-size: 250%;
   text-align: center;
 }
 
-.header__logo--accent{
-    color: vars.$color-accent;
+.header__logo--accent {
+  color: vars.$color-accent;
 }
 
-.header__form{
+.header__form {
   position: relative;
 }
 
-.header__search-bar {
-  //border-radius: 1em;
-  box-sizing: border-box;
-  padding: .5em 1em;
-  color: vars.$color-primary;
-  font-family: inherit;
-  font-size: 75%;
-  border: none;
-  outline: none;
-  background-color: vars.$color-bg-alt;
-  transition: .5s;
-}
-
-.header__search-bar:focus::placeholder{
-  color: vars.$color-primary-alt;
-}
-
-.header__search-bar::placeholder {
-  color: vars.$color-primary;
-}
-
 @media (max-width: vars.$screen-small-w) {
-  body{
+  body {
     font-size: $-font-size-sm;
   }
 }

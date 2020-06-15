@@ -1,0 +1,39 @@
+@use "../styles/base/vars";
+
+/*$-screen-small-h: vars.$screen-small-h;
+$-screen-small-w: vars.$screen-small-w;
+$-screen-mid-w: vars.$screen-mid-w;
+$-color-bg: vars.$color-bg-alt;*/
+
+
+$-screen-small-w: vars.$screen-small-w;
+$-color-primary: vars.$color-primary;
+$-color-primary-alt: vars.$color-primary-alt;
+$-color-bg-alt: vars.$color-bg-alt;
+
+.city-search-bar {
+  box-sizing: border-box;
+  padding: .5em 1em;
+  color: $-color-primary;
+  font-family: inherit;
+  font-size: 75%;
+  border: none;
+  outline: none;
+  background-color: $-color-bg-alt;
+  transition: .5s;
+}
+
+.city-search-bar:focus::placeholder {
+  color: $-color-primary-alt;
+}
+
+.city-search-bar::placeholder {
+  color: $-color-primary;
+}
+
+@media (max-width: $-screen-small-w) {
+  .city-search-bar {
+    font-size: 120%;
+    width: 100%;
+  }
+}

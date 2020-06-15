@@ -13,18 +13,31 @@ export class ForecastsList {
         this.group = group;
     }
 
+    private getDatePrefix(forDay: number) {
+        const today: number = new Date(Date.now()).getDate();
+        const tomorrow: number = new Date(Date.now()).getDate() + 1;
+        if (forDay === today)
+            return 'Today, ';
+        if (forDay === tomorrow)
+            return 'Tomorrow, '
+        return ''
+    }
+
     create() {
         const art: HTMLElement = document.createElement('article');
         art.classList.add(cx.container);
 
         const date: HTMLElement = document.createElement('header');
         date.classList.add(cx.date);
-        date.innerText = new Date(this.group.getForecasts()[0].getTimestamp()).toLocaleDateString();
+
+        const firstDayForecastTimeDate = new Date(this.group.getForecasts()[0].getTimestamp());
+
+        date.innerText = this.getDatePrefix(firstDayForecastTimeDate.getDate()) +
+            firstDayForecastTimeDate.toLocaleDateString();
         art.appendChild(date);
 
-        for (let f of this.group.getForecasts()) {
-            art.appendChild(new ForecastTile(f).create())
-        }
+        for (let f of this.group.getForecasts())
+            art.appendChild(new ForecastTile(f).create());
 
         return art
     }

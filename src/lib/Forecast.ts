@@ -9,8 +9,8 @@ export interface ForeCastData {
     timeUtc: string;
     temp: number;
     humidity: number;
-    description? : string;
-    icon? : string;
+    description: string;
+    icon: string;
 }
 
 export interface Forecast extends ForeCastData {
@@ -23,14 +23,28 @@ export interface Forecast extends ForeCastData {
     getLocaleDate(): string;
 
     getLocaleDateTime(): string;
+
+    getDescription(): string;
+
+    getIcon(): string;
 }
 
 export interface ForecastGroup {
     getCity(): string;
+
     getCountry(): string;
+
     getForecasts(): Array<Forecast>;
 }
 
 export interface ForecastsProvider {
-    provide(cityId: number | string): Promise<Array<ForecastGroup>>
+    provideByCityId(cityId: number | string): Promise<Array<ForecastGroup>>;
+
+    provideByCoords(lat: number | string, lon: number | string): Promise<Array<ForecastGroup>>;
+}
+
+export interface ForecastActionListener {
+    onForecastByCityId(cityId: string): any | Promise<any>;
+
+    onForecastByCoords(lat: string, lon: string): any | Promise<any>;
 }

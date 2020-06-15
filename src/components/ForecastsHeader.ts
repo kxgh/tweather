@@ -15,6 +15,9 @@ export class ForecastsHeader {
         const h: HTMLElement = document.createElement('header');
         const t: HTMLElement = document.createElement('h2');
         const d: HTMLElement = document.createElement('p');
+        h.addEventListener("click", () => {
+            window.scrollTo(0, 0);
+        });
         h.classList.add(cx.container);
         t.classList.add(cx.title);
         d.classList.add(cx.desc);
@@ -22,7 +25,7 @@ export class ForecastsHeader {
         d.innerText = '5 day weather forecast';
         h.appendChild(t);
         h.appendChild(d);
-        setImmediate(()=>{
+        setImmediate(() => {
             try {
                 h.scrollIntoView({behavior: 'smooth'});
             } catch (e) {

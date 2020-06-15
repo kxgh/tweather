@@ -1,6 +1,6 @@
-import {CitiesProvider, CityConsumer} from "../lib/City";
+import {CitiesProvider} from "../lib/City";
+import {ForecastActionListener} from "../lib/Forecast";
 import {City} from "../lib/City";
-import {FlagURLProvider} from "../lib/FlagURL";
 
 const cx = {
     list: 'city-chooser',
@@ -13,10 +13,11 @@ const cx = {
 
 const cityIdKey = 'cityId';
 
+
 export class ListCityChooser {
     private readonly input: HTMLInputElement;
     private readonly provider: CitiesProvider;
-    private readonly consumers: Array<CityConsumer>;
+    private readonly listeners: Array<ForecastActionListener>;
 
     private ul: HTMLUListElement;
     private lis: Array<HTMLLIElement>;
@@ -24,12 +25,11 @@ export class ListCityChooser {
     private pressTimeout: any;
     private pressDelay: number = 250;
     private created: boolean = false;
-    private flagProvider: FlagURLProvider | null = null;
 
     constructor(forInput: HTMLInputElement, cityProvider: CitiesProvider) {
         this.input = forInput;
         this.provider = cityProvider;
-        this.consumers = [];
+        this.listeners = [];
         this.ul = document.createElement('ul');
         this.ul.classList.add(cx.list);
         this.ul.classList.add(cx.listHidden);
@@ -38,16 +38,16 @@ export class ListCityChooser {
         }, 0);
     }
 
-    setFlagProvider(flagProvider: FlagURLProvider) {
-        this.flagProvider = flagProvider;
+    getCountryFlagUrl(country: string) {
+        return `https://www.countryflags.io/${country.toLowerCase()}/flat/32.png`;
     }
 
     setPressDelay(delay: number) {
         this.pressDelay = delay;
     }
 
-    addConsumer(consumer: CityConsumer) {
-        this.consumers.push(consumer);
+    addListener(listener: ForecastActionListener) {
+        this.listeners.push(listener);
     }
 
     private dissemble() {
@@ -73,12 +73,10 @@ export class ListCityChooser {
             });
             if (i === this.browsed)
                 li.classList.add(cx.itemBrowsed);
-            if (this.flagProvider) {
-                const img: HTMLImageElement = document.createElement('img');
-                img.src = this.flagProvider.provide(cities[i].country).url;
-                img.classList.add(cx.itemFlag);
-                li.appendChild(img);
-            }
+            const img: HTMLImageElement = document.createElement('img');
+            img.src = this.getCountryFlagUrl(cities[i].country);
+            img.classList.add(cx.itemFlag);
+            li.appendChild(img);
 
             frag.appendChild(li);
             this.lis.push(li);
@@ -90,7 +88,7 @@ export class ListCityChooser {
         this.dissemble();
         this.input.blur();
         this.input.value = cityName;
-        this.consumers.forEach(c => c.consume(cityId));
+        this.listeners.forEach(c => c.onForecastByCityId(cityId));
     }
 
     private browse(by: number) {
@@ -116,7 +114,7 @@ export class ListCityChooser {
     }
 
     create(): HTMLUListElement {
-        if(this.created)
+        if (this.created)
             return this.ul;
         this.created = true;
         const fkeys: Array<string> = ['arrowup', 'arrowdown', 'pageup', 'pagedown', 'home', 'end', 'enter', 'escape'];
@@ -159,10 +157,5 @@ export class ListCityChooser {
             this.hint();
         });
         return this.ul
-        //target.appendChild(this.ul);
-    }
-
-    halt() {
-
     }
 }

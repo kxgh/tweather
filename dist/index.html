@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RedWeather | 5 day weather</title>
+    <link rel="icon" href="favicon.ico"/>
+    <!--critical css:spinner-->
+    <style>.spinner{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#212529;z-index:9999;text-align:center}.spinner span{width:20vw;height:20vw;display:inline-block;border-radius:50%;background-color:#f32a00;margin-top:50%;transform:translateY(-50%);animation:.3s sun-spinner-pule alternate-reverse infinite}@keyframes sun-spinner-pule{from{filter:blur(5px);transform:translateY(-50%) scale(1.5);opacity:0}to{filter:blur(0);transform:translateY(-50%) scale(1);opacity:1}}</style>
 </head>
 <body>
-<!--<header class="header">
-    <h1 class="header__app-name">SomeWeather</h1>
-    <p class="header__app-desc">Weather Forecasts</p>
-    <div class="header__pic"></div>
-</header>-->
+<div class="spinner"><span></span></div>
 <div class="content-wrapper">
     <header class="header">
         <div class="header__sun"></div>
         <h2 class="header__logo"><span class="header__logo--accent">Red</span>Weather</h2>
-        <form class="header__form" role="search" autocomplete="off">
-            <input name="location" class="header__search-bar" type="text" id="search-bar"
-                   placeholder="Search for a location...">
-        </form>
+        <form class="header__form" role="search" autocomplete="off" id="search-form"></form>
     </header>
     <main id="forecasts-display" class="forecasts">
     </main>

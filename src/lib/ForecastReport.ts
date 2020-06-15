@@ -40,11 +40,25 @@ export class ForecastReport implements Forecast {
     }
 
     getLocaleDateTime(): string {
-        return new Date(this.timestamp).toLocaleTimeString(navigator.language);
+        let dt: string = new Date(this.timestamp).toLocaleTimeString(navigator.language);
+        try {
+            dt = dt.replace(/(\d+)(:\d\d)(:\d\d)(.*)/, '$1$2$4');
+        } catch (e) {
+            console.warn(e);
+        }
+        return dt;
     }
 
     getTimestamp(): number {
         return this.timestamp;
+    }
+
+    getDescription(): string {
+        return this.description;
+    }
+
+    getIcon(): string {
+        return this.icon;
     }
 
 }

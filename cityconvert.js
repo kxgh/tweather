@@ -4,42 +4,37 @@ const fs = require('fs');
 const SEP = ';';
 const NL = String.fromCharCode(10);
 
-function sortByKey(array, key) {
+const normalize = (str)=>{
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+};
+
+const sortByKey = (array, key) => {
     return array.sort(function (a, b) {
-        let x = a[key];
-        let y = b[key];
+        let x = normalize(a[key]);
+        let y = normalize(b[key]);
         return ((x < y) ? -1 : ((x > y) ? 1 : 0))
     });
-}
-
-/*const cm = (() => {
-    const m = new Map();
-    let counter = -9;
-    return {
-        translate(countryCode) {
-            const num = m.get(countryCode);
-            if (num || num === 0)
-                return num;
-            m.set(countryCode, counter);
-            return counter++
-        },
-        toObj() {
-            const entries = [...m.entries()];
-            const result = {};
-            entries.forEach(e => {
-                result[e[1]] = e[0];
-            });
-            console.log(result)
-            return result
-        }
-    }
-})();*/
-
+};
 const toStringLine = (id, name, country) => {
     return [id, name, country].join(SEP);
 };
 
-let res = sortByKey(file.map(e => ({id: e.id, name: e.name, country: e.country})), 'name');
+
+const mapAndFilterRedundancies = (content, target) => {
+    const used = new Set();
+    for (let entry of content) {
+        const newEntry = {id: entry.id, name: entry.name, country: entry.country};
+        const entryKey = entry.name + entry.country;
+        if (!used.has(entryKey)) {
+            used.add(entryKey);
+            target.push(newEntry);
+        }
+    }
+};
+
+let res = [];
+mapAndFilterRedundancies(file, res);
+res = sortByKey(res, 'name');
 res = res.map(e => toStringLine(e.id, e.name, e.country));
 const finalString = res.join(NL);
 fs.writeFileSync('./cities.json', JSON.stringify([finalString]));

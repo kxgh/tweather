@@ -1,5 +1,6 @@
 @use "../styles/base/vars";
 
+$-screen-small-w: vars.$screen-small-w;
 $-color-bg: vars.$color-bg;
 $-color-border: vars.$color-bg-alt;
 $-color-font: vars.$color-primary;
@@ -49,6 +50,22 @@ $-color-accent: vars.$color-accent;
 
 .city-chooser__item--browsed {
   color: $-color-accent;
-  transform: scale(1.1);
+  transform: translateX(1em);
   border: 1px solid $-color-accent;
+}
+
+@media (max-width: $-screen-small-w) {
+  .city-chooser{
+    margin: 1em auto;
+    position: relative;
+  }
+  .city-chooser__item{
+    margin: 0 6px;
+    font-size: 180%;
+  }
+  .city-chooser__item--browsed{
+    color: $-color-accent;
+    transform: none;
+    border: 1px solid $-color-accent;
+  }
 }
