@@ -1,9 +1,9 @@
 import {ForecastReport} from "./ForecastReport";
-import {ForecastGroup} from "./Forecast";
+import {Forecast, ForecastGroup} from "./Forecast";
 
-export class DayForecast implements ForecastGroup{
+export class DayForecast implements ForecastGroup {
     readonly forDay: number;
-    private readonly records: Array<ForecastReport>;
+    private readonly records: Array<Forecast>;
     private readonly forCountry: string;
     private readonly forCity: string;
 
@@ -14,13 +14,27 @@ export class DayForecast implements ForecastGroup{
         this.records = [];
     }
 
-    insertForecast(forecastRecord: ForecastReport) {
-        if (new Date(forecastRecord.timestamp).getDate() !== this.forDay)
+    insertForecast(forecast: Forecast) {
+        if (forecast.getLocalDate().getDate() !== this.forDay)
             throw new Error('Inserting forecast record into a wrong day!');
-        this.records.push(forecastRecord);
+        this.records.push(forecast);
     }
 
-    getForecasts(): Array<ForecastReport>{
+    public static formatTimezone(timezone: number): string {
+        const sgn = timezone < 0 ? '-' : '+';
+        const inMins = Math.floor(Math.abs(timezone / 1000) / 60);
+        const hours = Math.floor(inMins / 60);
+        const mins = (inMins % (hours * 60));
+        return `UTC${sgn}${hours > 9 ? hours : '0' + hours}:${mins > 9 ? mins : '0' + mins}`;
+    }
+
+    getTimezone(): string {
+        if (!this.records.length)
+            return '';
+        return DayForecast.formatTimezone(this.records[0].getTimeZone());
+    }
+
+    getForecasts(): Array<Forecast> {
         return this.records;
     }
 

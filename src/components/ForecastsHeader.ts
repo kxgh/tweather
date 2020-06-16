@@ -6,9 +6,11 @@ const cx = {
 
 export class ForecastsHeader {
     private readonly city: string;
+    private readonly timezone: string = '';
 
-    constructor(city: string) {
+    constructor(city: string, timezone?: string) {
         this.city = city;
+        timezone && (this.timezone = timezone)
     }
 
     create(): HTMLElement {
@@ -22,7 +24,7 @@ export class ForecastsHeader {
         t.classList.add(cx.title);
         d.classList.add(cx.desc);
         t.innerText = this.city;
-        d.innerText = '5 day weather forecast';
+        d.innerText = `5 day weather forecast${this.timezone ? ` (${this.timezone}) ` : ''}`;
         h.appendChild(t);
         h.appendChild(d);
         setImmediate(() => {

@@ -19,7 +19,7 @@ export class ForecastsList {
         if (forDay === today)
             return 'Today, ';
         if (forDay === tomorrow)
-            return 'Tomorrow, '
+            return 'Tomorrow, ';
         return ''
     }
 
@@ -30,10 +30,10 @@ export class ForecastsList {
         const date: HTMLElement = document.createElement('header');
         date.classList.add(cx.date);
 
-        const firstDayForecastTimeDate = new Date(this.group.getForecasts()[0].getTimestamp());
+        const ff: Forecast = this.group.getForecasts()[0];
+        const firstDayForecastDateDay: number = ff.getLocalDate().getDate();
 
-        date.innerText = this.getDatePrefix(firstDayForecastTimeDate.getDate()) +
-            firstDayForecastTimeDate.toLocaleDateString();
+        date.innerText = this.getDatePrefix(firstDayForecastDateDay) + ff.getLocalDate().toLocaleDateString();
         art.appendChild(date);
 
         for (let f of this.group.getForecasts())

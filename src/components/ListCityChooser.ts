@@ -117,7 +117,7 @@ export class ListCityChooser {
         if (this.created)
             return this.ul;
         this.created = true;
-        const fkeys: Array<string> = ['arrowup', 'arrowdown', 'pageup', 'pagedown', 'home', 'end', 'enter', 'escape'];
+        const fkeys: Array<string> = ['arrowup', 'arrowdown', 'pageup', 'pagedown', 'enter', 'escape'];
         this.input.addEventListener("keydown", ev => {
             const key: string = ev.key.toLowerCase();
             fkeys.includes(key) && ev.preventDefault();

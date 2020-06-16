@@ -1,21 +1,34 @@
 import {Forecast, ForeCastData, TempUnit} from "./Forecast";
 
 export class ForecastReport implements Forecast {
-    readonly humidity: number = 0;
     readonly temp: number = 0;
-    readonly timeUtc: string = '';
-    readonly timestamp: number = 0;
+    readonly utcTime: number = 0;
     readonly description: string = '';
     readonly icon: string = '';
+    readonly timezone: number;
+    readonly country: string;
+    readonly city: string;
 
     constructor(data: ForeCastData) {
-        this.humidity = data.humidity;
         this.temp = data.temp;
-        // millis timestamp
-        this.timestamp = data.timestamp > 999000000000 ? data.timestamp : 1000 * data.timestamp;
-        this.timeUtc = data.timeUtc;
-        data.description && (this.description = data.description);
-        data.icon && (this.icon = data.icon);
+        // to millis timestamp
+        this.utcTime = data.utcTime > 999000000000 ? data.utcTime : 1000 * data.utcTime;
+        this.timezone = data.timezone * 1000;
+        this.description = data.description;
+        this.icon = data.icon;
+        this.country = data.country.toLowerCase();
+        this.city = data.city;
+
+        /*console.debug('xxxx')
+        console.debug(this.utcTime)
+        console.debug(this.timezone)
+        console.debug(this.city)
+        console.debug('offset: ' + new Date().getTimezoneOffset())
+        console.debug(this.getLocalDate())*/
+    }
+
+    getTimeZone(): number {
+        return this.timezone;
     }
 
     getTemp(unit: TempUnit): string {
@@ -31,26 +44,16 @@ export class ForecastReport implements Forecast {
         }
     }
 
-    getHumidity(): string {
-        return `${this.humidity}%`;
+    getLocalDate(): Date {
+        return new Date(this.getLocalTime() + new Date().getTimezoneOffset() * 60 * 1000)
     }
 
-    getLocaleDate(): string {
-        return new Date(this.timestamp).toLocaleDateString(navigator.language);
+    getLocalTime(): number {
+        return this.utcTime + this.timezone;
     }
 
-    getLocaleDateTime(): string {
-        let dt: string = new Date(this.timestamp).toLocaleTimeString(navigator.language);
-        try {
-            dt = dt.replace(/(\d+)(:\d\d)(:\d\d)(.*)/, '$1$2$4');
-        } catch (e) {
-            console.warn(e);
-        }
-        return dt;
-    }
-
-    getTimestamp(): number {
-        return this.timestamp;
+    getUtcTime(): number {
+        return this.utcTime;
     }
 
     getDescription(): string {
@@ -61,4 +64,11 @@ export class ForecastReport implements Forecast {
         return this.icon;
     }
 
+    getCity(): string {
+        return this.city;
+    }
+
+    getCountry(): string {
+        return this.country;
+    }
 }

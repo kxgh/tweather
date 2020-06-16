@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ForecastsProvider} from "./Forecast";
+import {Forecast, ForecastsProvider} from "./Forecast";
 import {ForecastGroup} from "./Forecast";
 import {ForecastReport} from "./ForecastReport";
 import {DayForecast} from "./DayForecast";
@@ -23,13 +23,13 @@ export class OWMForecastsProvider implements ForecastsProvider {
         return `https://openweathermap.org/img/wn/${icon}@2x.png`;
     }
 
-    private assignRecsToDays(recs: Array<ForecastReport>, city: string, country: string): Array<ForecastGroup> {
+    private assignRecsToDays(recs: Array<Forecast>): Array<ForecastGroup> {
         const days: Array<DayForecast> = [];
         for (let rec of recs) {
-            const recDay: number = new Date(rec.timestamp).getDate();
+            const recDay: number = rec.getLocalDate().getDate();
             let fd: DayForecast | null = days.filter(d => d.forDay === recDay)[0];
             if (!fd) {
-                fd = new DayForecast(recDay, city, country);
+                fd = new DayForecast(recDay, rec.getCity(), rec.getCountry());
                 days.push(fd);
             }
             fd.insertForecast(rec);
@@ -37,13 +37,14 @@ export class OWMForecastsProvider implements ForecastsProvider {
         return days
     }
 
-    private rawListToForecasts(rl: Array<any>): Array<ForecastReport> {
+    private rawListToForecasts(rl: Array<any>, city: string, country: string, timezone: number): Array<Forecast> {
         return rl.map((f: any) =>
             new ForecastReport({
-                timestamp: f.dt,
-                timeUtc: f.dt_txt,
+                utcTime: f.dt,
+                city,
+                country,
+                timezone,
                 temp: f.main.temp,
-                humidity: f.main.humidity,
                 icon: this.getIconUrl('' + f.weather[0].icon),
                 description: f.weather[0].description
             })
@@ -54,8 +55,9 @@ export class OWMForecastsProvider implements ForecastsProvider {
         try {
             //const resp: any = (await axios.get('sampleWeather.json')).data;
             const resp: any = (await axios.get(this.getCityIdUrl(cityId))).data;
-            const recs: Array<ForecastReport> = this.rawListToForecasts(resp.list);
-            return this.assignRecsToDays(recs, resp.city.name, resp.city.country)
+            const recs: Array<Forecast> = this.rawListToForecasts(resp.list,
+                resp.city.name, resp.city.country, resp.city.timezone);
+            return this.assignRecsToDays(recs)
         } catch (e) {
             console.error(e);
             return [];
@@ -65,8 +67,9 @@ export class OWMForecastsProvider implements ForecastsProvider {
     async provideByCoords(lat: number | string, lon: number | string): Promise<Array<ForecastGroup>> {
         try {
             const resp: any = (await axios.get(this.getCoordsUrl(lat, lon))).data;
-            const recs: Array<ForecastReport> = this.rawListToForecasts(resp.list);
-            return this.assignRecsToDays(recs, resp.city.name, resp.city.country)
+            const recs: Array<Forecast> = this.rawListToForecasts(resp.list,
+                resp.city.name, resp.city.country, resp.city.timezone);
+            return this.assignRecsToDays(recs);
         } catch (e) {
             console.error(e);
             return [];

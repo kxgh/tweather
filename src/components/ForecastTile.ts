@@ -17,6 +17,10 @@ export class ForecastTile {
         this.forecast = forecast;
     }
 
+    private skipSeconds(dateString: string): string{
+        return dateString.replace(/(\d+)(:\d\d)(:\d\d)(.*)/, '$1$2$4');
+    }
+
     create(): HTMLElement {
         const f: Forecast = this.forecast;
 
@@ -34,7 +38,7 @@ export class ForecastTile {
         };
 
         (apd('img', cx.icon, '') as HTMLImageElement).src = f.getIcon();
-        apd('p', cx.time, f.getLocaleDateTime());
+        apd('p', cx.time, this.skipSeconds(f.getLocalDate().toLocaleTimeString()));
         apd('p', cx.temp, f.getTemp(TempUnit.C));
         apd('p', cx.desc, f.getDescription() || '');
 

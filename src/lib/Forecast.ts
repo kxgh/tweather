@@ -5,34 +5,41 @@ export enum TempUnit {
 }
 
 export interface ForeCastData {
-    timestamp: number;
-    timeUtc: string;
+    utcTime: number;
     temp: number;
-    humidity: number;
     description: string;
     icon: string;
+    timezone: number;
+    country: string;
+    city: string;
 }
 
 export interface Forecast extends ForeCastData {
     getTemp(unit?: TempUnit): string;
 
-    getHumidity(): string;
+    getUtcTime(): number;
 
-    getTimestamp(): number;
+    getLocalTime(): number;
 
-    getLocaleDate(): string;
-
-    getLocaleDateTime(): string;
+    getLocalDate(): Date;
 
     getDescription(): string;
 
+    getTimeZone(): number;
+
     getIcon(): string;
+
+    getCountry(): string;
+
+    getCity(): string;
 }
 
 export interface ForecastGroup {
     getCity(): string;
 
     getCountry(): string;
+
+    getTimezone(): string;
 
     getForecasts(): Array<Forecast>;
 }
