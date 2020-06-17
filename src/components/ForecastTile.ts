@@ -39,7 +39,7 @@ export class ForecastTile {
 
         (apd('img', cx.icon, '') as HTMLImageElement).src = f.getIcon();
         apd('p', cx.time, this.skipSeconds(f.getLocalDate().toLocaleTimeString()));
-        apd('p', cx.temp, f.getTemp(TempUnit.C));
+        apd('p', cx.temp, f.getTemp(TempUnit.AUTO));
         apd('p', cx.desc, f.getDescription() || '');
 
         return art

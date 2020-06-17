@@ -1,0 +1,42 @@
+@use "../styles/base/vars";
+
+$-color-primary: vars.$color-accent;
+$-color-bg-alt: vars.$color-bg-alt;
+
+.overview-graph {
+  width: 100%;
+  font-size: 100%;
+  margin-top: 1em;
+  overflow: visible;
+
+  svg.ct-chart-bar, svg.ct-chart-line {
+    overflow: visible;
+  }
+
+  .ct-grid {
+    stroke: $-color-bg-alt;
+  }
+
+  .ct-label {
+    color: $-color-primary;
+  }
+
+  .ct-series-a .ct-line {
+    stroke: $-color-primary;
+    stroke-width: 2px;
+  }
+
+  .ct-series-a .ct-point {
+    stroke: $-color-primary;
+    stroke-width: 5px;
+  }
+
+  .ct-label.ct-label.ct-horizontal.ct-end {
+    position: relative;
+    justify-content: flex-end;
+    text-align: right;
+    transform-origin: 100% 0;
+    transform: translate(-100%) rotate(-45deg);
+    white-space: nowrap;
+  }
+}

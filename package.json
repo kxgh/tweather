@@ -1,6 +1,6 @@
 {
   "name": "tweather",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,11 @@
   "author": "kxgh",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "chartist": "^0.11.4"
   },
   "devDependencies": {
+    "@types/chartist": "^0.9.48",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "style-loader": "^1.2.1",

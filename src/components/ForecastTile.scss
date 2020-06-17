@@ -7,6 +7,7 @@ $-color-bg: vars.$color-bg-alt;
 $-color-accent: vars.$color-accent;
 
 .forecast-tile {
+  //background-color: rgba(243, 42, 0, 0.1);
   background-color: $-color-bg;
   font-size: 75%;
   font-weight: lighter;
