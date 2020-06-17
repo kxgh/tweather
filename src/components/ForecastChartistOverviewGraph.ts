@@ -39,7 +39,7 @@ export class ForecastChartistOverviewGraph {
         figure.classList.add(cx.container);
         figure.classList.add(cx.chart);
         try {
-            var data = {
+            const data = {
                 labels: this.getLabels(groups),
                 series: [
                     this.getSeries(groups)

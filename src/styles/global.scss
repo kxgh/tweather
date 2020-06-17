@@ -10,6 +10,8 @@
 @import "../components/ForecastTile";
 @import "../components/CitySearchBar";
 @import "../components/ForecastChartistOverviewGraph";
+@import "../components/RecentCitiesBar";
+
 
 /* ************************ */
 
@@ -26,6 +28,7 @@ body {
   color: vars.$color-primary;
   font-size: $-font-size;
   font-family: PTSans, sans-serif, serif;
+  overflow-x: hidden;
 }
 
 .spinner {
@@ -65,8 +68,8 @@ body {
   font-size: 200%;
   border-radius: 50%;
   background-color: vars.$color-accent;
-  width: 70px;
-  height: 70px;
+  width: 1.5em;
+  height: 1.5em;
   margin: 0 auto;
 }
 
@@ -87,5 +90,17 @@ body {
 @media (max-width: vars.$screen-small-w) {
   body {
     font-size: $-font-size-sm;
+  }
+}
+
+@media (min-width: vars.$screen-lg-w) {
+  .forecast-tile {
+    width: 12%;
+    font-size: 100%;
+  }
+
+  .content-wrapper{
+    max-width: vars.$screen-lg-w;
+    max-width: calc(#{vars.$screen-lg-w} + 10vw);
   }
 }

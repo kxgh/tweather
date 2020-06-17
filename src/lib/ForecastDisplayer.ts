@@ -2,6 +2,7 @@ import {ForecastGroup, ForecastActionListener, ForecastsProvider} from "./Foreca
 import {ForecastsHeader} from "../components/ForecastsHeader";
 import {ForecastsList} from "../components/ForecastsList";
 import {ForecastChartistOverviewGraph} from "../components/ForecastChartistOverviewGraph";
+import {City} from "./City";
 
 export class ForecastDisplayer implements ForecastActionListener {
     private readonly forecastsProvider: ForecastsProvider;
@@ -12,18 +13,15 @@ export class ForecastDisplayer implements ForecastActionListener {
         this.main = mainForecastsDisplay;
     }
 
-    async onForecastByCityId(cityId: string): Promise<void> {
+    async onForecastByCityId(city: City): Promise<void> {
         this.clean();
-        const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCityId(cityId);
-        //const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(49.07008, 17.4686208);
-        console.log(cityId)
+        const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCityId(city.id);
         this.rebuild(group);
     }
 
-    async onForecastByCoords(lat: string, lon: string): Promise<void> {
+    async onForecastByCoords(lat: string, lon: string, city?: City): Promise<void> {
         this.clean();
         const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(lat, lon);
-        //const group: Array<ForecastGroup> = await this.forecastsProvider.provideByCoords(49.07008, 17.4686208);
         this.rebuild(group);
     }
 
@@ -35,7 +33,7 @@ export class ForecastDisplayer implements ForecastActionListener {
         frag.appendChild(new ForecastsHeader(city, timezone).create())
     }
 
-    private buildGraph(frag: DocumentFragment, groups: Array<ForecastGroup>){
+    private buildGraph(frag: DocumentFragment, groups: Array<ForecastGroup>) {
         frag.appendChild(new ForecastChartistOverviewGraph().create(groups));
     }
 

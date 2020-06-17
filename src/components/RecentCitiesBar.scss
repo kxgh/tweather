@@ -1,0 +1,63 @@
+@use "../styles/base/vars";
+
+$-screen-small-w: vars.$screen-small-w;
+$-color-primary: vars.$color-primary;
+$-color-primary-alt: vars.$color-primary-alt;
+$-color-bg-alt: vars.$color-bg-alt;
+
+$-color-head: vars.$color-primary;
+$-color-li-bg: vars.$color-bg;
+$-color-li-border: vars.$color-bg-alt;
+$-color-li-border-hover: vars.$color-accent;
+
+.recent-cities-bar {
+  position: absolute;
+  right: 0;
+  font-size: 75%;
+  box-sizing: border-box;
+  padding: .5em 1em;
+  top: 0;
+}
+
+.recent-cities-bar--hidden {
+  display: none;
+}
+
+.recent-cities-bar__list {
+  position: absolute;
+  left: -333vw;
+  z-index: 5;
+  margin-top: .5em;
+}
+
+.recent-cities-bar:hover .recent-cities-bar__list {
+  left: 0;
+}
+
+.recent-cities-bar__list__item {
+  background-color: $-color-li-bg;
+  border: 2px solid $-color-li-border;
+  padding: .5em;
+  cursor: pointer;
+  transition: border .5s;
+}
+
+.recent-cities-bar__list__item:hover {
+  border: 2px solid $-color-li-border-hover;
+  text-decoration: underline;
+}
+
+.recent-cities-bar__head {
+  cursor: pointer;
+}
+
+@media (max-width: $-screen-small-w) {
+  .recent-cities-bar {
+    position: initial;
+    font-size: 100%;
+  }
+  .recent-cities-bar__list, .recent-cities-bar__head {
+    position: initial;
+    font-size: 140%;
+  }
+}

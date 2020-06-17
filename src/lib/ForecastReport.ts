@@ -18,13 +18,6 @@ export class ForecastReport implements Forecast {
         this.icon = data.icon;
         this.country = data.country.toLowerCase();
         this.city = data.city;
-
-        /*console.debug('xxxx')
-        console.debug(this.utcTime)
-        console.debug(this.timezone)
-        console.debug(this.city)
-        console.debug('offset: ' + new Date().getTimezoneOffset())
-        console.debug(this.getLocalDate())*/
     }
 
     getTimeZone(): number {
@@ -32,7 +25,9 @@ export class ForecastReport implements Forecast {
     }
 
     getTemp(unit: TempUnit): string {
-        if (!unit || unit === TempUnit.AUTO)
+        if (window.location.search.toLowerCase().indexOf('tempunit=c') >= 0) // TODO
+            unit = TempUnit.C;
+        else if (!unit || unit === TempUnit.AUTO)
             unit = navigator.language.toLowerCase() === 'en-us' ? TempUnit.F : TempUnit.C;
         switch (unit) {
             case TempUnit.C:

@@ -9,3 +9,7 @@ export interface CitiesProvider {
 
     provide(prefix: string): Array<City>;
 }
+
+export interface RecentCitiesProvider {
+    provide(): Array<City>;
+}

@@ -1,4 +1,5 @@
 import {ForecastReport} from "./ForecastReport";
+import {City} from "./City";
 
 export enum TempUnit {
     K = "K", C = "C", F = "F", AUTO = "AUTO"
@@ -51,7 +52,7 @@ export interface ForecastsProvider {
 }
 
 export interface ForecastActionListener {
-    onForecastByCityId(cityId: string): any | Promise<any>;
+    onForecastByCityId(city: City): any | Promise<any>;
 
-    onForecastByCoords(lat: string, lon: string): any | Promise<any>;
+    onForecastByCoords(lat: string, lon: string, city?: City): any | Promise<any>;
 }

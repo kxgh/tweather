@@ -1,5 +1,7 @@
 @use "../styles/base/vars";
 
+$-screen-small-w: vars.$screen-small-w;
+
 .forecasts__header {
   font-size: 150%;
   background-color: vars.$color-accent;
@@ -37,7 +39,7 @@
   }
 }
 
-@media (orientation: portrait) {
+@media (max-width: $-screen-small-w) {
   .forecasts__header {
     position: sticky;
     top: 0;

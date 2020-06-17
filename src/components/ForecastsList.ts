@@ -27,7 +27,7 @@ export class ForecastsList {
         const art: HTMLElement = document.createElement('article');
         art.classList.add(cx.container);
 
-        const date: HTMLElement = document.createElement('header');
+        const date: HTMLElement = document.createElement('h2');
         date.classList.add(cx.date);
 
         const ff: Forecast = this.group.getForecasts()[0];

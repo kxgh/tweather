@@ -11,9 +11,6 @@ const cx = {
     itemBrowsed: 'city-chooser__item--browsed'
 };
 
-const cityIdKey = 'cityId';
-
-
 export class ListCityChooser {
     private readonly input: HTMLInputElement;
     private readonly provider: CitiesProvider;
@@ -69,7 +66,7 @@ export class ListCityChooser {
             li.innerText = `${cities[i].name}, ${cities[i].country}`;
             li.classList.add(cx.item);
             li.addEventListener("click", (ev) => {
-                this.choose(cities[i].id, cities[i].name);
+                this.choose(cities[i]);
             });
             if (i === this.browsed)
                 li.classList.add(cx.itemBrowsed);
@@ -84,11 +81,11 @@ export class ListCityChooser {
         this.ul.appendChild(frag);
     }
 
-    private choose(cityId: string, cityName: string) {
+    private choose(city: City) {
         this.dissemble();
         this.input.blur();
-        this.input.value = cityName;
-        this.listeners.forEach(c => c.onForecastByCityId(cityId));
+        this.input.value = city.name;
+        this.listeners.forEach(c => c.onForecastByCityId(city));
     }
 
     private browse(by: number) {

@@ -3,11 +3,11 @@
 $-screen-small-h: vars.$screen-small-h;
 $-screen-small-w: vars.$screen-small-w;
 $-screen-mid-w: vars.$screen-mid-w;
+$-screen-lg-w: vars.$screen-lg-w;
 $-color-bg: vars.$color-bg-alt;
 $-color-accent: vars.$color-accent;
 
 .forecast-tile {
-  //background-color: rgba(243, 42, 0, 0.1);
   background-color: $-color-bg;
   font-size: 75%;
   font-weight: lighter;
@@ -74,6 +74,13 @@ $-color-accent: vars.$color-accent;
 @media (max-width: $-screen-small-w) {
   .forecast-tile {
     width: 45%;
+    font-size: 100%;
+  }
+}
+
+@media (min-width: $-screen-lg-w) {
+  .forecast-tile {
+    width: 12%;
     font-size: 100%;
   }
 }
