@@ -4,7 +4,7 @@ const fs = require('fs');
 const SEP = ';';
 const NL = String.fromCharCode(10);
 
-const normalize = (str)=>{
+const normalize = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 };
 
@@ -37,4 +37,4 @@ mapAndFilterRedundancies(file, res);
 res = sortByKey(res, 'name');
 res = res.map(e => toStringLine(e.id, e.name, e.country));
 const finalString = res.join(NL);
-fs.writeFileSync('./cities.json', JSON.stringify([finalString]));
+fs.writeFileSync('./cities.pack.json', JSON.stringify([finalString]));
