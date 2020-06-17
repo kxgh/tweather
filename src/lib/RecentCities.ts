@@ -2,10 +2,6 @@ import {ForecastActionListener} from "./Forecast";
 import {City, RecentCitiesProvider} from "./City";
 import {RecentCitiesBar} from "../components/RecentCitiesBar";
 
-enum StorageKey {
-    RECENTS = "redWeatherRecents"
-}
-
 interface StoredCity extends City {
     lastAccess: number;
 }
@@ -23,7 +19,7 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
     }
 
     constructor(allowStorage: boolean) {
-        this.isUsingStorage = allowStorage && !!window.localStorage;
+        this.isUsingStorage = allowStorage && navigator.cookieEnabled;
         if (this.isUsingStorage) {
             this.current = this.readFromStorage();
             console.log(this.provide());
@@ -42,27 +38,27 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
         this.current = res.slice(0, MAX_RECENTS);
     }
 
-    private saveToStorage(key: StorageKey, data: string) {
+    private saveToStorage(data: string) {
         try {
-            localStorage.setItem(key, data);
-            console.debug(`Stored ${key} into local storage`)
+            document.cookie = data;
+            console.debug(`Stored recent cities as cookie`)
         } catch (e) {
-            console.warn(`Failed to store ${key} into local storage:`);
+            console.warn(`Failed to store recent cities as cookie:`);
             console.warn(e);
         }
     }
 
     private readFromStorage(): Array<StoredCity> {
         try {
-            const obtained: any = JSON.parse('' + localStorage.getItem(StorageKey.RECENTS));
+            const obtained: any = JSON.parse(document.cookie);
             if (!Array.isArray(obtained)) {
-                this.saveToStorage(StorageKey.RECENTS, JSON.stringify([]));
+                this.saveToStorage(JSON.stringify([]));
                 return [];
             } else return (obtained as Array<StoredCity>);
         } catch (e) {
             console.warn(e);
             // on parsing error clear the storage
-            this.saveToStorage(StorageKey.RECENTS, JSON.stringify([]));
+            this.saveToStorage(JSON.stringify([]));
             return [];
         }
     }
@@ -72,7 +68,7 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
             return;
         const newStored: StoredCity = {...city, lastAccess: Date.now()};
         this.setCurrent(this.sortByAccessTime([newStored].concat(this.current)));
-        this.saveToStorage(StorageKey.RECENTS, JSON.stringify(this.current));
+        this.saveToStorage(JSON.stringify(this.current));
         if(this.bar){
             this.bar.updateList();
         }else{

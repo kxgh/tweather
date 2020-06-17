@@ -10,7 +10,7 @@ enum StorageKey {
     VERSION = 'redWeatherVersion'
 }
 
-const storageVersion: number = 5;
+const storageVersion: number = 6;
 
 export class PackedCitiesProvider implements CitiesProvider {
     private readonly url: string = 'cities.pack.json';
