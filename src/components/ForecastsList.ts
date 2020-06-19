@@ -2,8 +2,9 @@ import {Forecast, ForecastGroup} from "../lib/Forecast";
 import {ForecastTile} from "./ForecastTile";
 
 const cx = {
-    container: 'forecasts-list',
-    date: 'forecasts-list__date'
+    wrapper: 'forecasts-list',
+    date: 'forecasts-list__date',
+    tilesContainer: 'forecasts-list__tiles'
 };
 
 export class ForecastsList {
@@ -25,7 +26,7 @@ export class ForecastsList {
 
     create() {
         const art: HTMLElement = document.createElement('article');
-        art.classList.add(cx.container);
+        art.classList.add(cx.wrapper);
 
         const date: HTMLElement = document.createElement('h2');
         date.classList.add(cx.date);
@@ -36,9 +37,13 @@ export class ForecastsList {
         date.innerText = this.getDatePrefix(firstDayForecastDateDay) + ff.getLocalDate().toLocaleDateString();
         art.appendChild(date);
 
-        for (let f of this.group.getForecasts())
-            art.appendChild(new ForecastTile(f).create());
+        const tiles: HTMLElement = document.createElement('section');
+        tiles.classList.add(cx.tilesContainer);
 
+        for (let f of this.group.getForecasts())
+            tiles.appendChild(new ForecastTile(f).create());
+
+        art.appendChild(tiles);
         return art
     }
 }

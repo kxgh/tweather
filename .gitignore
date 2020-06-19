@@ -8,5 +8,5 @@ dist/*.ttf
 dist/*.woff
 dist/*.woff2
 dist/*.svg
-**/*.css
+src/**/*.css
 **/*.map

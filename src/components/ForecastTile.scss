@@ -28,7 +28,7 @@ $-color-accent: vars.$color-accent;
 }
 
 .forecast-tile__desc {
-  font-size: 90%;
+  font-size: 80%;
 }
 
 .forecast-tile:nth-child(2n) {
@@ -80,7 +80,7 @@ $-color-accent: vars.$color-accent;
 
 @media (min-width: $-screen-lg-w) {
   .forecast-tile {
-    width: 12%;
-    font-size: 100%;
+    /*width: 12%;
+    font-size: 100%;*/
   }
 }

@@ -39,4 +39,8 @@ $-color-bg-alt: vars.$color-bg-alt;
     transform: translate(-100%) rotate(-45deg);
     white-space: nowrap;
   }
+
+  .ct-series-a .ct-area {
+    fill: $-color-primary;
+  }
 }

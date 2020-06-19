@@ -28,13 +28,13 @@ const rcb = new RecentCitiesBar(PROVIDERS.RECENTS);
 
 const DOM_ELEMS = (() => {
     const searchBar: HTMLInputElement = new CitySearchBar().create();
-    const headerForm: HTMLElement = document.getElementById('search-form')!;
+    const headerNav: HTMLElement = document.getElementById('header-nav')!;
     const mainForecastsDisplay: HTMLElement = document.getElementById('forecasts-display') as HTMLElement;
 
     const recentCitiesBar: HTMLElement = rcb.create();
     return {
         SEARCH_BAR: searchBar,
-        HEADER_FORM: headerForm,
+        HEADER_NAV: headerNav,
         DISPLAY: mainForecastsDisplay,
         RECENTS_BAR: recentCitiesBar
     }
@@ -43,9 +43,9 @@ const DOM_ELEMS = (() => {
 const forecastDisplayer: ForecastDisplayer = new ForecastDisplayer(PROVIDERS.FORECASTS, DOM_ELEMS.DISPLAY);
 const cityChooser: ListCityChooser = new ListCityChooser(DOM_ELEMS.SEARCH_BAR, PROVIDERS.CITIES);
 
-DOM_ELEMS.HEADER_FORM.appendChild(DOM_ELEMS.SEARCH_BAR);
-DOM_ELEMS.HEADER_FORM.appendChild(cityChooser.create());
-DOM_ELEMS.HEADER_FORM.appendChild(DOM_ELEMS.RECENTS_BAR);
+DOM_ELEMS.HEADER_NAV.appendChild(DOM_ELEMS.SEARCH_BAR);
+DOM_ELEMS.HEADER_NAV.appendChild(cityChooser.create());
+DOM_ELEMS.HEADER_NAV.appendChild(DOM_ELEMS.RECENTS_BAR);
 
 cityChooser.addListener(forecastDisplayer);
 cityChooser.addListener(PROVIDERS.RECENTS);

@@ -3,17 +3,18 @@
 $-color-primary: vars.$color-accent;
 
 .forecasts-list {
-  display: flex;
-  flex-flow: wrap row;
-  justify-content: space-evenly;
 }
 
 .forecasts-list__date {
-  width: 100%;
-  font-size: 150%;
+  font-size: 120%;
   color: $-color-primary;
   border-bottom: .1em solid vars.$color-accent;
   padding: .5em;
   margin: .5em auto;
   text-shadow: 0 1px #000;
+}
+
+.forecasts-list__tiles{
+  display: flex;
+  flex-flow: wrap row;
 }

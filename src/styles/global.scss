@@ -15,9 +15,6 @@
 
 /* ************************ */
 
-$-font-size: 24px;
-$-font-size-sm: 18px;
-
 @font-face {
   font-family: PTSans;
   src: url("../assets/PTSans-Bold.ttf");
@@ -26,7 +23,7 @@ $-font-size-sm: 18px;
 body {
   background-color: vars.$color-bg;
   color: vars.$color-primary;
-  font-size: $-font-size;
+  font-size: 24px;
   font-family: PTSans, sans-serif, serif;
   overflow-x: hidden;
 }
@@ -54,6 +51,7 @@ body {
 .content-wrapper {
   width: 100%;
   max-width: 720px;
+  max-width: calc(720px + 15vw);
   margin: 0 auto;
   padding: 2em 0;
 }
@@ -89,18 +87,6 @@ body {
 
 @media (max-width: vars.$screen-small-w) {
   body {
-    font-size: $-font-size-sm;
-  }
-}
-
-@media (min-width: vars.$screen-lg-w) {
-  .forecast-tile {
-    width: 12%;
-    font-size: 100%;
-  }
-
-  .content-wrapper{
-    max-width: vars.$screen-lg-w;
-    max-width: calc(#{vars.$screen-lg-w} + 10vw);
+    font-size: 120%;
   }
 }

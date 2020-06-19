@@ -2,14 +2,14 @@ var path = require('path');
 
 module.exports = {
     entry: './src/main.ts',
-    mode: "development",
+    mode: "production",
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.js']
     },
     devServer: {
         contentBase: './dist'
     },
-    devtool: 'inline-source-map',
+    /*devtool: 'inline-source-map',*/
     module: {
         rules: [
             {test: /\.ts$/, loader: 'ts-loader'},
