@@ -7,6 +7,7 @@ interface StoredCity extends City {
 }
 
 const MAX_RECENTS: number = 5;
+const COOKIE_EXP_TIME_OFFSET = 3600 * 1000 * 24 * 365;
 
 export class RecentCities implements ForecastActionListener, RecentCitiesProvider {
 
@@ -21,7 +22,7 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
     constructor(allowStorage: boolean) {
         this.isUsingStorage = allowStorage && navigator.cookieEnabled;
         if (this.isUsingStorage) {
-            this.current = this.readFromStorage();
+            this.current = this.readPersistedCities();
             console.log(this.provide());
         }
     }
@@ -38,9 +39,9 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
         this.current = res.slice(0, MAX_RECENTS);
     }
 
-    private saveToStorage(data: string) {
+    private persist(data: string) {
         try {
-            document.cookie = data;
+            document.cookie = `${data}; expires=${new Date(Date.now() + COOKIE_EXP_TIME_OFFSET).toUTCString()};`;
             console.debug(`Stored recent cities as cookie`)
         } catch (e) {
             console.warn(`Failed to store recent cities as cookie:`);
@@ -48,18 +49,22 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
         }
     }
 
-    private readFromStorage(): Array<StoredCity> {
+    private readPersistedCities(): Array<StoredCity> {
+        const storeEmpty = ()=>{
+            this.persist(JSON.stringify([]));
+            return [];
+        };
         try {
-            const obtained: any = JSON.parse(document.cookie);
-            if (!Array.isArray(obtained)) {
-                this.saveToStorage(JSON.stringify([]));
-                return [];
-            } else return (obtained as Array<StoredCity>);
+            const cookie: string = document.cookie;
+            if(!cookie)
+                return storeEmpty();
+            const obtained: any = JSON.parse(cookie);
+            if (!Array.isArray(obtained)) return storeEmpty();
+            else return (obtained as Array<StoredCity>);
         } catch (e) {
             console.warn(e);
             // on parsing error clear the storage
-            this.saveToStorage(JSON.stringify([]));
-            return [];
+            return storeEmpty();
         }
     }
 
@@ -68,10 +73,10 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
             return;
         const newStored: StoredCity = {...city, lastAccess: Date.now()};
         this.setCurrent(this.sortByAccessTime([newStored].concat(this.current)));
-        this.saveToStorage(JSON.stringify(this.current));
-        if(this.bar){
+        this.persist(JSON.stringify(this.current));
+        if (this.bar) {
             this.bar.updateList();
-        }else{
+        } else {
             console.warn('Recent cities updated but no associated element to update')
         }
     }

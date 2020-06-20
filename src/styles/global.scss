@@ -66,6 +66,7 @@ body {
   font-size: 200%;
   border-radius: 50%;
   background-color: vars.$color-accent;
+  background: linear-gradient(to bottom, vars.$color-accent 10%,vars.$color-bg 100%);
   width: 1.5em;
   height: 1.5em;
   margin: 0 auto;
