@@ -1,4 +1,4 @@
-import {ForecastGroup, ForecastActionListener, ForecastsProvider} from "./Forecast";
+import {ForecastActionListener, ForecastGroup, ForecastsProvider} from "./Forecast";
 import {ForecastsHeader} from "../components/ForecastsHeader";
 import {ForecastsList} from "../components/ForecastsList";
 import {ForecastChartistOverviewGraph} from "../components/ForecastChartistOverviewGraph";

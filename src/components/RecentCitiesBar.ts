@@ -41,10 +41,10 @@ export class RecentCitiesBar {
         this.ul.innerHTML = '';
         const frag: DocumentFragment = document.createDocumentFragment();
         const carr: Array<City> = this.provider.provide();
-        if(!carr.length){
+        if (!carr.length) {
             this.wrapper.classList.add(cx.elHidden);
             return;
-        }else this.wrapper.classList.remove(cx.elHidden);
+        } else this.wrapper.classList.remove(cx.elHidden);
         for (let city of carr) {
             const el = document.createElement('li');
             el.innerText = city.name;

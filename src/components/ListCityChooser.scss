@@ -36,7 +36,7 @@ $-color-accent: vars.$color-accent;
   border: 1px solid $-color-border;
 }
 
-.city-chooser__item__flag{
+.city-chooser__item__flag {
   width: 1em;
   height: auto;
   margin-left: .5em;
@@ -53,15 +53,15 @@ $-color-accent: vars.$color-accent;
 }
 
 @media (max-width: $-screen-small-w) {
-  .city-chooser{
+  .city-chooser {
     margin: 1em auto;
     position: relative;
   }
-  .city-chooser__item{
+  .city-chooser__item {
     margin: 0 6px;
     font-size: 180%;
   }
-  .city-chooser__item--browsed{
+  .city-chooser__item--browsed {
     color: $-color-accent;
     transform: none;
     border: 1px solid $-color-accent;

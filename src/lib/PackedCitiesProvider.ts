@@ -1,6 +1,5 @@
-import {City} from "./City";
+import {CitiesProvider, City} from "./City";
 import axios from "axios";
-import {CitiesProvider} from "./City";
 
 type CityRaw = [string, string, string];
 
@@ -126,7 +125,7 @@ export class PackedCitiesProvider implements CitiesProvider {
     }
 
     provide(prefix: string): Array<City> {
-        const normPrefix: string = this.normalize(prefix);
+        const normPrefix: string = this.normalize(prefix.trim());
         if (prefix.length < 3) {
             const filterer = (c: CityRaw) => c[1].length === normPrefix.length &&
                 this.normalize(c[1]) === normPrefix;

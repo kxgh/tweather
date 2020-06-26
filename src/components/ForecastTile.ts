@@ -17,7 +17,7 @@ export class ForecastTile {
         this.forecast = forecast;
     }
 
-    private skipSeconds(dateString: string): string{
+    private skipSeconds(dateString: string): string {
         return dateString.replace(/(\d+)(:\d\d)(:\d\d)(.*)/, '$1$2$4');
     }
 

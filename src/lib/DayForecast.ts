@@ -1,4 +1,3 @@
-import {ForecastReport} from "./ForecastReport";
 import {Forecast, ForecastGroup} from "./Forecast";
 
 export class DayForecast implements ForecastGroup {

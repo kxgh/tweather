@@ -1,4 +1,4 @@
-import {CitiesProvider, RecentCitiesProvider} from "./lib/City";
+import {CitiesProvider} from "./lib/City";
 import {CitySearchBar} from "./components/CitySearchBar";
 import {PackedCitiesProvider} from "./lib/PackedCitiesProvider";
 import {ForecastsProvider} from "./lib/Forecast";

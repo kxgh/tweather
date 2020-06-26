@@ -1,6 +1,5 @@
-import {CitiesProvider} from "../lib/City";
+import {CitiesProvider, City} from "../lib/City";
 import {ForecastActionListener} from "../lib/Forecast";
-import {City} from "../lib/City";
 
 const cx = {
     list: 'city-chooser',

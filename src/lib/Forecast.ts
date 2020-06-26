@@ -1,4 +1,3 @@
-import {ForecastReport} from "./ForecastReport";
 import {City} from "./City";
 
 export enum TempUnit {

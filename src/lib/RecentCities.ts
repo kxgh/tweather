@@ -50,13 +50,13 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
     }
 
     private readPersistedCities(): Array<StoredCity> {
-        const storeEmpty = ()=>{
+        const storeEmpty = () => {
             this.persist(JSON.stringify([]));
             return [];
         };
         try {
             const cookie: string = document.cookie;
-            if(!cookie)
+            if (!cookie)
                 return storeEmpty();
             const obtained: any = JSON.parse(cookie);
             if (!Array.isArray(obtained)) return storeEmpty();

@@ -1,8 +1,9 @@
 import axios from "axios";
-import {Forecast, ForecastsProvider} from "./Forecast";
-import {ForecastGroup} from "./Forecast";
+import {Forecast, ForecastGroup, ForecastsProvider} from "./Forecast";
 import {ForecastReport} from "./ForecastReport";
 import {DayForecast} from "./DayForecast";
+
+const API_KEY: string = '314da1c8c5968a0ce3c6c2d12e90bce5';
 
 export class OWMForecastsProvider implements ForecastsProvider {
 
@@ -10,13 +11,13 @@ export class OWMForecastsProvider implements ForecastsProvider {
     }
 
     private getCityIdUrl(cityId: string | number) {
-        return `https://api.openweathermap.org/data/2.5/forecast?id=${'' + cityId}&appid=314da1c8c5968a0ce3c6c2d12e90bce5`;
+        return `https://api.openweathermap.org/data/2.5/forecast?id=${'' + cityId}&appid=${API_KEY}`;
     }
 
     private getCoordsUrl(lat: number | string, lon: number | string) {
         const lt: string = 'lat=' + lat;
         const ln: string = 'lon=' + lon;
-        return `https://api.openweathermap.org/data/2.5/forecast?${lt}&${ln}&appid=314da1c8c5968a0ce3c6c2d12e90bce5`;
+        return `https://api.openweathermap.org/data/2.5/forecast?${lt}&${ln}&appid=${API_KEY}`;
     }
 
     private getIconUrl(icon: string) {
