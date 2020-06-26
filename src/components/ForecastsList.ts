@@ -15,8 +15,9 @@ export class ForecastsList {
     }
 
     private getDatePrefix(forDay: number) {
-        const today: number = new Date(Date.now()).getDate();
-        const tomorrow: number = new Date(Date.now()).getDate() + 1;
+        const now: number = Date.now();
+        const today: number = new Date(now).getDate();
+        const tomorrow: number = new Date(now + 1000 * 60 * 60 * 24).getDate();
         if (forDay === today)
             return 'Today, ';
         if (forDay === tomorrow)

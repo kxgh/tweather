@@ -6,10 +6,18 @@ const cx = {
     chart: 'ct-chart'
 };
 
-export class ForecastChartistOverviewGraph {
-    constructor() {
-    }
+enum GraphLabels {
+    DAY_DATE,
+    DAY_NAME
+}
 
+const USE_GRAPH_LABEL: GraphLabels = GraphLabels.DAY_NAME;
+
+const toEnglishDayName = (dayNum: number) => {
+    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayNum] || 'Unknown';
+};
+
+export class ForecastChartistOverviewGraph {
     private getSeries(groups: Array<ForecastGroup>): Array<number> {
         const result: Array<number> = [];
         for (let group of groups) {
@@ -27,7 +35,18 @@ export class ForecastChartistOverviewGraph {
             for (let i = 0, fcs = group.getForecasts(); i < fcs.length; i++) {
                 if (fcs.length < 4 || i)
                     result.push('');
-                else result.push(fcs[i].getLocalDate().toLocaleDateString());
+                else {
+                    switch (USE_GRAPH_LABEL) {
+                        case GraphLabels.DAY_NAME:
+                            result.push(toEnglishDayName(fcs[i].getLocalDate().getDay()));
+                            break;
+                        case GraphLabels.DAY_DATE:
+                            result.push(fcs[i].getLocalDate().toLocaleDateString());
+                            break;
+                        default:
+                            result.push('?');
+                    }
+                }
             }
 
         }
