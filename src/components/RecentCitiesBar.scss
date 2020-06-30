@@ -17,50 +17,53 @@ $-color-li-border-hover: vars.$color-accent;
   box-sizing: border-box;
   padding: .5em 1em;
   top: 0;
+
+  &--hidden {
+    display: none;
+  }
+
+  &__list {
+    position: absolute;
+    left: -333vw;
+    z-index: 5;
+    margin-top: .5em;
+  }
+
+  &:hover &__list {
+    left: 0;
+  }
+
+  &__list__item {
+    background-color: $-color-li-bg;
+    border: 2px solid $-color-li-border;
+    padding: .5em;
+    cursor: pointer;
+    transition: border .5s;
+  }
+
+  &__list__item:hover {
+    border: 2px solid $-color-li-border-hover;
+    text-decoration: underline;
+  }
+
+  &__head {
+    cursor: pointer;
+  }
 }
 
-.recent-cities-bar--hidden {
-  display: none;
-}
-
-.recent-cities-bar__list {
-  position: absolute;
-  left: -333vw;
-  z-index: 5;
-  margin-top: .5em;
-}
-
-.recent-cities-bar:hover .recent-cities-bar__list {
-  left: 0;
-}
-
-.recent-cities-bar__list__item {
-  background-color: $-color-li-bg;
-  border: 2px solid $-color-li-border;
-  padding: .5em;
-  cursor: pointer;
-  transition: border .5s;
-}
-
-.recent-cities-bar__list__item:hover {
-  border: 2px solid $-color-li-border-hover;
-  text-decoration: underline;
-}
-
-.recent-cities-bar__head {
-  cursor: pointer;
-}
 
 @media (max-width: $-screen-small-w) {
   .recent-cities-bar {
     position: initial;
     font-size: 100%;
-  }
-  .recent-cities-bar__list, .recent-cities-bar__head {
-    position: initial;
-    font-size: 140%;
-  }
-  .recent-cities-bar {
-    border-top: 1px solid $-color-head;
+
+    &__list, &__head {
+      position: initial;
+      font-size: 140%;
+    }
+
+    & {
+      border-top: 1px solid $-color-head;
+    }
   }
 }

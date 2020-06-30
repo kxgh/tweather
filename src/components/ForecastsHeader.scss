@@ -9,16 +9,16 @@ $-screen-small-w: vars.$screen-small-w;
   color: vars.$color-bg;
   animation: .5s forecast-header-appear-anim;
   cursor: pointer;
-}
 
-.forecasts__header-title {
-  position: relative;
-  left: 0;
-  animation: 1.5s forecast-header-title-appear-anim;
-}
+  &-title {
+    position: relative;
+    left: 0;
+    animation: 1.5s forecast-header-title-appear-anim;
+  }
 
-.forecasts__header-desc {
-  font-size: 50%;
+  &-desc {
+    font-size: 50%;
+  }
 }
 
 @keyframes forecast-header-title-appear-anim {

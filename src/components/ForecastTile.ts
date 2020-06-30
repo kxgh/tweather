@@ -7,7 +7,7 @@ const cx = {
     humidity: 'forecast-tile__humidity',
     desc: 'forecast-tile__desc',
     icon: 'forecast-tile__icon',
-    text: 'forecast-title__text'
+    text: 'forecast-tile__text'
 };
 
 export class ForecastTile {

@@ -3,18 +3,17 @@
 $-color-primary: vars.$color-accent;
 
 .forecasts-list {
-}
+  &__date {
+    font-size: 120%;
+    color: $-color-primary;
+    border-bottom: .1em solid vars.$color-accent;
+    padding: .5em;
+    margin: .5em auto;
+    text-shadow: 0 1px #000;
+  }
 
-.forecasts-list__date {
-  font-size: 120%;
-  color: $-color-primary;
-  border-bottom: .1em solid vars.$color-accent;
-  padding: .5em;
-  margin: .5em auto;
-  text-shadow: 0 1px #000;
-}
-
-.forecasts-list__tiles {
-  display: flex;
-  flex-flow: wrap row;
+  &__tiles {
+    display: flex;
+    flex-flow: wrap row;
+  }
 }

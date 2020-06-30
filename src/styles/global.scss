@@ -60,30 +60,30 @@ body {
   border-bottom: .1em solid vars.$color-accent;
   padding-bottom: .5em;
   font-size: 100%;
-}
 
-.header__sun {
-  font-size: 200%;
-  border-radius: 50%;
-  background-color: vars.$color-accent;
-  background: linear-gradient(to bottom, vars.$color-accent 10%, vars.$color-bg 100%);
-  width: 1.5em;
-  height: 1.5em;
-  margin: 0 auto;
-}
+  &__sun{
+    font-size: 200%;
+    border-radius: 50%;
+    background-color: vars.$color-accent;
+    background: linear-gradient(to bottom, vars.$color-accent 10%, vars.$color-bg 100%);
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 auto;
+  }
 
-.header__logo {
-  margin: 0 auto 1em auto;
-  font-size: 250%;
-  text-align: center;
-}
+  &__logo{
+    margin: 0 auto 1em auto;
+    font-size: 250%;
+    text-align: center;
 
-.header__logo--accent {
-  color: vars.$color-accent;
-}
+    &--accent{
+      color: vars.$color-accent;
+    }
+  }
 
-.header__nav {
-  position: relative;
+  &__nav{
+    position: relative;
+  }
 }
 
 @media (max-width: vars.$screen-small-w) {

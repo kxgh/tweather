@@ -15,14 +15,14 @@ $-color-bg-alt: vars.$color-bg-alt;
   outline: none;
   background-color: $-color-bg-alt;
   transition: .5s;
-}
 
-.city-search-bar:focus::placeholder {
-  color: $-color-primary-alt;
-}
+  &:focus::placeholder {
+    color: $-color-primary-alt;
+  }
 
-.city-search-bar::placeholder {
-  color: $-color-primary;
+  &::placeholder {
+    color: $-color-primary;
+  }
 }
 
 @media (max-width: $-screen-small-w) {
