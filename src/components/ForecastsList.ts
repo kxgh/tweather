@@ -1,5 +1,5 @@
-import {Forecast, ForecastGroup} from "../lib/Forecast";
-import {ForecastTile} from "./ForecastTile";
+import { Forecast, ForecastGroup } from "../lib/Forecast";
+import { ForecastTile } from "./ForecastTile";
 
 const cx = {
     wrapper: 'forecasts-list',
@@ -14,7 +14,13 @@ export class ForecastsList {
         this.group = group;
     }
 
-    private getDatePrefix(forDay: number) {
+    private getDayName(dayIndex: number): string {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday']
+            .concat(['Thursday', 'Friday', 'Saturday']);
+        return days.map(d => d + ', ')[dayIndex] || ''
+    }
+
+    private getDatePrefix(forDay: number, forDate: Date) {
         const now: number = Date.now();
         const today: number = new Date(now).getDate();
         const tomorrow: number = new Date(now + 1000 * 60 * 60 * 24).getDate();
@@ -22,7 +28,7 @@ export class ForecastsList {
             return 'Today, ';
         if (forDay === tomorrow)
             return 'Tomorrow, ';
-        return ''
+        return this.getDayName(forDate.getDay())
     }
 
     create() {
@@ -35,7 +41,8 @@ export class ForecastsList {
         const ff: Forecast = this.group.getForecasts()[0];
         const firstDayForecastDateDay: number = ff.getLocalDate().getDate();
 
-        date.innerText = this.getDatePrefix(firstDayForecastDateDay) + ff.getLocalDate().toLocaleDateString();
+        date.innerText = this.getDatePrefix(firstDayForecastDateDay, ff.getLocalDate())
+            + ff.getLocalDate().toLocaleDateString();
         art.appendChild(date);
 
         const tiles: HTMLElement = document.createElement('section');
