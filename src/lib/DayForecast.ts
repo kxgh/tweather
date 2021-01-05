@@ -22,8 +22,8 @@ export class DayForecast implements ForecastGroup {
     public static formatTimezone(timezone: number): string {
         const sgn = timezone < 0 ? '-' : '+';
         const inMins = Math.floor(Math.abs(timezone / 1000) / 60);
-        const hours = Math.floor(inMins / 60);
-        const mins = (inMins % (hours * 60));
+        const hours = Math.floor(inMins / 60) || 0;
+        const mins = (inMins % (hours * 60)) || 0;
         return `UTC${sgn}${hours > 9 ? hours : '0' + hours}:${mins > 9 ? mins : '0' + mins}`;
     }
 
