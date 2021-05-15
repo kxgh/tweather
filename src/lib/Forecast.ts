@@ -12,6 +12,7 @@ export interface ForeCastData {
     timezone: number;
     country: string;
     city: string;
+    wind: number;
 }
 
 export interface Forecast extends ForeCastData {
@@ -32,6 +33,8 @@ export interface Forecast extends ForeCastData {
     getCountry(): string;
 
     getCity(): string;
+
+    getWind(): number;
 }
 
 export interface ForecastGroup {

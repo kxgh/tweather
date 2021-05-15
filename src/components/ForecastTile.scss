@@ -30,6 +30,11 @@ $-color-accent: vars.$color-accent;
     font-size: 80%;
   }
 
+  &__wind {
+    font-size: 80%;
+    opacity: .6;
+  }
+
   &:nth-child(2n) {
     animation: 2s forecast-tile-appear-anim-1;
   }

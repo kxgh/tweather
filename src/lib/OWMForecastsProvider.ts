@@ -38,8 +38,8 @@ export class OWMForecastsProvider implements ForecastsProvider {
         return days
     }
 
-    private rawListToForecasts(rl: Array<any>, city: string, country: string, timezone: number): Array<Forecast> {
-        return rl.map((f: any) =>
+    private rawListToForecasts(rawList: Array<any>, city: string, country: string, timezone: number): Array<Forecast> {
+        return rawList.map((f: any) =>
             new ForecastReport({
                 utcTime: f.dt,
                 city,
@@ -47,7 +47,8 @@ export class OWMForecastsProvider implements ForecastsProvider {
                 timezone,
                 temp: f.main.temp,
                 icon: this.getIconUrl('' + f.weather[0].icon),
-                description: f.weather[0].description
+                description: f.weather[0].description,
+                wind: f.wind.speed
             })
         );
     }

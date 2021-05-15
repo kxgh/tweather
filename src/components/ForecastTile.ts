@@ -6,9 +6,12 @@ const cx = {
     temp: 'forecast-tile__temp',
     humidity: 'forecast-tile__humidity',
     desc: 'forecast-tile__desc',
+    wind: 'forecast-tile__wind',
     icon: 'forecast-tile__icon',
     text: 'forecast-tile__text'
 };
+
+const WIND_SPEED_WARNING_THRESHOLD = 6;
 
 export class ForecastTile {
     private readonly forecast: Forecast;
@@ -41,6 +44,7 @@ export class ForecastTile {
         apd('p', cx.time, this.skipSeconds(f.getLocalDate().toLocaleTimeString()));
         apd('p', cx.temp, f.getTemp(TempUnit.AUTO));
         apd('p', cx.desc, f.getDescription() || '');
+        apd('p', cx.wind, `${f.getWind()} m/s` + (f.getWind() >= WIND_SPEED_WARNING_THRESHOLD ? '⚠️' : '')).title = 'wind';
 
         return art
     }

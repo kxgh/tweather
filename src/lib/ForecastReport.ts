@@ -8,6 +8,7 @@ export class ForecastReport implements Forecast {
     readonly timezone: number;
     readonly country: string;
     readonly city: string;
+    readonly wind: number;
 
     constructor(data: ForeCastData) {
         this.temp = data.temp;
@@ -18,6 +19,7 @@ export class ForecastReport implements Forecast {
         this.icon = data.icon;
         this.country = data.country.toLowerCase();
         this.city = data.city;
+        this.wind = data.wind;
     }
 
     getTimeZone(): number {
@@ -65,5 +67,9 @@ export class ForecastReport implements Forecast {
 
     getCountry(): string {
         return this.country;
+    }
+
+    getWind(): number {
+        return this.wind;
     }
 }
