@@ -32,6 +32,12 @@ export class ListCityChooser {
         this.lis = [];
         this.pressTimeout = setTimeout(() => {
         }, 0);
+        forInput.addEventListener("click", (event: MouseEvent) => {
+            event.stopPropagation();
+        });
+        window.document.addEventListener("click", () => {
+            this.dissemble();
+        })
     }
 
     getCountryFlagUrl(country: string) {
