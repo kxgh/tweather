@@ -1,12 +1,12 @@
-import {ForecastActionListener} from "./Forecast";
-import {City, RecentCitiesProvider} from "./City";
-import {RecentCitiesBar} from "../components/RecentCitiesBar";
+import {ForecastActionListener} from './Forecast';
+import {City, RecentCitiesProvider} from './City';
+import {RecentCitiesBar} from '../components/RecentCitiesBar';
 
 interface StoredCity extends City {
     lastAccess: number;
 }
 
-const MAX_RECENTS: number = 5;
+const MAX_RECENTS = 5;
 const COOKIE_EXP_TIME_OFFSET = 3600 * 1000 * 24 * 365;
 
 export class RecentCities implements ForecastActionListener, RecentCitiesProvider {
@@ -30,7 +30,7 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
     private setCurrent(to: Array<StoredCity>) {
         const res: Array<StoredCity> = [];
         const includedCities: Array<string> = [];
-        for (let sc of to) {
+        for (const sc of to) {
             if (!includedCities.includes(sc.name)) {
                 res.push(sc);
                 includedCities.push(sc.name);
@@ -42,9 +42,9 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
     private persist(data: string) {
         try {
             document.cookie = `${data}; expires=${new Date(Date.now() + COOKIE_EXP_TIME_OFFSET).toUTCString()};`;
-            console.debug(`Stored recent cities as cookie`)
+            console.debug('Stored recent cities as cookie');
         } catch (e) {
-            console.warn(`Failed to store recent cities as cookie:`);
+            console.warn('Failed to store recent cities as cookie:');
             console.warn(e);
         }
     }
@@ -77,7 +77,7 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
         if (this.bar) {
             this.bar.updateList();
         } else {
-            console.warn('Recent cities updated but no associated element to update')
+            console.warn('Recent cities updated but no associated element to update');
         }
     }
 
@@ -91,9 +91,9 @@ export class RecentCities implements ForecastActionListener, RecentCitiesProvide
 
     private sortByAccessTime(cities: Array<StoredCity>): Array<StoredCity> {
         return cities.sort(function (a, b) {
-            let x = a.lastAccess;
-            let y = b.lastAccess;
-            return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+            const x = a.lastAccess;
+            const y = b.lastAccess;
+            return ((x > y) ? -1 : ((x < y) ? 1 : 0));
         });
     }
 

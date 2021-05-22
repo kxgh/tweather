@@ -1,5 +1,5 @@
-import {City, RecentCitiesProvider} from "../lib/City";
-import {ForecastActionListener} from "../lib/Forecast";
+import {City, RecentCitiesProvider} from '../lib/City';
+import {ForecastActionListener} from '../lib/Forecast';
 
 const cx = {
     list: 'recent-cities-bar__list',
@@ -33,11 +33,11 @@ export class RecentCitiesBar {
         this.wrapper.appendChild(this.ul);
     }
 
-    addListener(listener: ForecastActionListener) {
+    addListener(listener: ForecastActionListener): void {
         this.listeners.push(listener);
     }
 
-    updateList() {
+    updateList(): void {
         this.ul.innerHTML = '';
         const frag: DocumentFragment = document.createDocumentFragment();
         const carr: Array<City> = this.provider.provide();
@@ -45,12 +45,12 @@ export class RecentCitiesBar {
             this.wrapper.classList.add(cx.elHidden);
             return;
         } else this.wrapper.classList.remove(cx.elHidden);
-        for (let city of carr) {
+        for (const city of carr) {
             const el = document.createElement('li');
             el.innerText = city.name;
             el.classList.add(cx.item);
-            el.addEventListener("click", () => {
-                for (let listener of this.listeners)
+            el.addEventListener('click', () => {
+                for (const listener of this.listeners)
                     listener.onForecastByCityId(city);
             });
             frag.appendChild(el);

@@ -1,7 +1,7 @@
-import {City} from "./City";
+import {City} from './City';
 
 export enum TempUnit {
-    K = "K", C = "C", F = "F", AUTO = "AUTO"
+    K = 'K', C = 'C', F = 'F', AUTO = 'AUTO'
 }
 
 export interface ForeCastData {

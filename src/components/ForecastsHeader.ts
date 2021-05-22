@@ -10,14 +10,14 @@ export class ForecastsHeader {
 
     constructor(city: string, timezone?: string) {
         this.city = city;
-        timezone && (this.timezone = timezone)
+        timezone && (this.timezone = timezone);
     }
 
     create(): HTMLElement {
         const h: HTMLElement = document.createElement('header');
         const t: HTMLElement = document.createElement('h2');
         const d: HTMLElement = document.createElement('p');
-        h.addEventListener("click", () => {
+        h.addEventListener('click', () => {
             window.scrollTo(0, 0);
         });
         h.classList.add(cx.container);
@@ -35,7 +35,7 @@ export class ForecastsHeader {
             }
         });
 
-        return h
+        return h;
     }
 
 }

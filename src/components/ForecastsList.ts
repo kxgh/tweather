@@ -1,5 +1,5 @@
-import { Forecast, ForecastGroup } from "../lib/Forecast";
-import { ForecastTile } from "./ForecastTile";
+import { Forecast, ForecastGroup } from '../lib/Forecast';
+import { ForecastTile } from './ForecastTile';
 
 const cx = {
     wrapper: 'forecasts-list',
@@ -17,7 +17,7 @@ export class ForecastsList {
     private getDayName(dayIndex: number): string {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday']
             .concat(['Thursday', 'Friday', 'Saturday']);
-        return days.map(d => d + ', ')[dayIndex] || ''
+        return days.map(d => d + ', ')[dayIndex] || '';
     }
 
     private getDatePrefix(forDay: number, forDate: Date) {
@@ -28,10 +28,10 @@ export class ForecastsList {
             return 'Today, ';
         if (forDay === tomorrow)
             return 'Tomorrow, ';
-        return this.getDayName(forDate.getDay())
+        return this.getDayName(forDate.getDay());
     }
 
-    create() {
+    create(): HTMLElement {
         const art: HTMLElement = document.createElement('article');
         art.classList.add(cx.wrapper);
 
@@ -48,10 +48,10 @@ export class ForecastsList {
         const tiles: HTMLElement = document.createElement('section');
         tiles.classList.add(cx.tilesContainer);
 
-        for (let f of this.group.getForecasts())
+        for (const f of this.group.getForecasts())
             tiles.appendChild(new ForecastTile(f).create());
 
         art.appendChild(tiles);
-        return art
+        return art;
     }
 }

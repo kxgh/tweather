@@ -1,5 +1,5 @@
-import * as Chartist from "chartist";
-import {ForecastGroup, TempUnit} from "../lib/Forecast";
+import * as Chartist from 'chartist';
+import {ForecastGroup, TempUnit} from '../lib/Forecast';
 
 const cx = {
     container: 'overview-graph',
@@ -20,37 +20,37 @@ const toEnglishDayName = (dayNum: number) => {
 export class ForecastChartistOverviewGraph {
     private getSeries(groups: Array<ForecastGroup>): Array<number> {
         const result: Array<number> = [];
-        for (let group of groups) {
-            for (let f of group.getForecasts()) {
+        for (const group of groups) {
+            for (const f of group.getForecasts()) {
                 const temp: string = f.getTemp(TempUnit.AUTO);
-                result.push(parseInt(temp.substring(0, temp.length - 2)))
+                result.push(parseInt(temp.substring(0, temp.length - 2)));
             }
         }
-        return result
+        return result;
     }
 
     private getLabels(groups: Array<ForecastGroup>): Array<string> {
         const result: Array<string> = [];
-        for (let group of groups) {
+        for (const group of groups) {
             for (let i = 0, fcs = group.getForecasts(); i < fcs.length; i++) {
                 if (fcs.length < 4 || i)
                     result.push('');
                 else {
                     switch (USE_GRAPH_LABEL) {
-                        case GraphLabels.DAY_NAME:
-                            result.push(toEnglishDayName(fcs[i].getLocalDate().getDay()));
-                            break;
-                        case GraphLabels.DAY_DATE:
-                            result.push(fcs[i].getLocalDate().toLocaleDateString());
-                            break;
-                        default:
-                            result.push('?');
+                    case GraphLabels.DAY_NAME:
+                        result.push(toEnglishDayName(fcs[i].getLocalDate().getDay()));
+                        break;
+                    case GraphLabels.DAY_DATE:
+                        result.push(fcs[i].getLocalDate().toLocaleDateString());
+                        break;
+                    default:
+                        result.push('?');
                     }
                 }
             }
 
         }
-        return result
+        return result;
     }
 
     create(groups: Array<ForecastGroup>): HTMLElement {
@@ -70,7 +70,7 @@ export class ForecastChartistOverviewGraph {
                 stretch: true,
                 showArea: true,
                 axisY: {
-                    labelInterpolationFnc: function (value: string, index: number) {
+                    labelInterpolationFnc: function (value: string) {
                         return value + tempUnit;
                     }
                 },
@@ -94,6 +94,6 @@ export class ForecastChartistOverviewGraph {
         } catch (e) {
             console.error(e);
         }
-        return figure
+        return figure;
     }
 }

@@ -1,5 +1,5 @@
-import {CitiesProvider, City} from "./City";
-import axios from "axios";
+import {CitiesProvider, City} from './City';
+import axios from 'axios';
 
 type CityRaw = [string, string, string];
 
@@ -9,7 +9,7 @@ enum StorageKey {
     VERSION = 'redWeatherVersion'
 }
 
-const storageVersion: number = 6;
+const storageVersion = 6;
 
 export class PackedCitiesProvider implements CitiesProvider {
     private readonly url: string = 'cities.pack.json';
@@ -35,7 +35,7 @@ export class PackedCitiesProvider implements CitiesProvider {
         if (this.isUsingStorage) {
             try {
                 localStorage.setItem(key, data);
-                console.debug(`Stored ${key} into local storage`)
+                console.debug(`Stored ${key} into local storage`);
             } catch (e) {
                 console.warn(`Failed to store ${key} into local storage:`);
                 console.warn(e);
@@ -50,10 +50,10 @@ export class PackedCitiesProvider implements CitiesProvider {
             const cities: Array<any> = this.unpack(respString);
             console.debug(`Fetched ${cities.length} cities from ${this.url}`);
             this.cities = cities;
-            return true
+            return true;
         } catch (e) {
             console.error(e);
-            return false
+            return false;
         }
 
     }
@@ -76,7 +76,7 @@ export class PackedCitiesProvider implements CitiesProvider {
         if (fromStorage) {
             this.cities = this.unpack(fromStorage);
             console.debug(`Loaded ${this.cities.length} cities from localstorage`);
-            return true
+            return true;
         } else
             return this.fetchAndSet();
     }
@@ -84,14 +84,14 @@ export class PackedCitiesProvider implements CitiesProvider {
     private normalize(arg: string): string {
         // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
         if (typeof arg.normalize === 'function')
-            return arg.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            return arg.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
         return arg.toLowerCase();
     }
 
     private fillLetterIndexMap(): void {
         if (!Object.keys(this.letterIndexMap).length && this.cities.length) {
             if (this.isUsingStorage) {
-                const storedMap: any = localStorage.getItem(StorageKey.LIM_STORAGE_KEY);
+                const storedMap = localStorage.getItem(StorageKey.LIM_STORAGE_KEY);
                 if (storedMap) {
                     this.letterIndexMap = JSON.parse(storedMap);
                     console.debug('Loaded letter index map from storage');
@@ -112,7 +112,7 @@ export class PackedCitiesProvider implements CitiesProvider {
             }
             this.letterIndexMap[trailLetter] = [trailStartIdx, this.cities.length - 1];
             if (this.isUsingStorage)
-                this.saveToStorage(StorageKey.LIM_STORAGE_KEY, JSON.stringify(this.letterIndexMap))
+                this.saveToStorage(StorageKey.LIM_STORAGE_KEY, JSON.stringify(this.letterIndexMap));
         }
     }
 
@@ -121,7 +121,7 @@ export class PackedCitiesProvider implements CitiesProvider {
             return arr;
         this.fillLetterIndexMap();
         const fl = this.normalize(prefix[0]);
-        return arr.slice(this.letterIndexMap[fl][0], this.letterIndexMap[fl][1] + 1)
+        return arr.slice(this.letterIndexMap[fl][0], this.letterIndexMap[fl][1] + 1);
     }
 
     provide(prefix: string): Array<City> {
@@ -130,11 +130,11 @@ export class PackedCitiesProvider implements CitiesProvider {
             const filterer = (c: CityRaw) => c[1].length === normPrefix.length &&
                 this.normalize(c[1]) === normPrefix;
             return this.getRelevantEntries(prefix, this.cities).filter(filterer)
-                .map(c => ({id: c[0], name: c[1], country: c[2]}))
+                .map(c => ({id: c[0], name: c[1], country: c[2]}));
         } else {
             const filterer = (c: CityRaw) => this.normalize(c[1]).startsWith(normPrefix);
             return this.getRelevantEntries(prefix, this.cities).filter(filterer)
-                .map(c => ({id: c[0], name: c[1], country: c[2]}))
+                .map(c => ({id: c[0], name: c[1], country: c[2]}));
         }
     }
 }

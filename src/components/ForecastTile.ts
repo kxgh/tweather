@@ -1,4 +1,4 @@
-import {Forecast, TempUnit} from "../lib/Forecast";
+import {Forecast, TempUnit} from '../lib/Forecast';
 
 const cx = {
     container: 'forecast-tile',
@@ -37,7 +37,7 @@ export class ForecastTile {
                 el.classList.add(cx.text);
             txt && (el.innerText = txt);
             art.appendChild(el);
-            return el
+            return el;
         };
 
         (apd('img', cx.icon, '') as HTMLImageElement).src = f.getIcon();
@@ -46,6 +46,6 @@ export class ForecastTile {
         apd('p', cx.desc, f.getDescription() || '');
         apd('p', cx.wind, `${f.getWind()} m/s` + (f.getWind() >= WIND_SPEED_WARNING_THRESHOLD ? '⚠️' : '')).title = 'wind';
 
-        return art
+        return art;
     }
 }

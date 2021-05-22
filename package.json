@@ -1,6 +1,6 @@
 {
   "name": "tweather",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,10 @@
   },
   "devDependencies": {
     "@types/chartist": "^0.9.48",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "css-loader": "^3.5.3",
+    "eslint": "^7.27.0",
     "file-loader": "^6.0.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",

@@ -1,8 +1,8 @@
-import {ForecastActionListener, ForecastGroup, ForecastsProvider} from "./Forecast";
-import {ForecastsHeader} from "../components/ForecastsHeader";
-import {ForecastsList} from "../components/ForecastsList";
-import {ForecastChartistOverviewGraph} from "../components/ForecastChartistOverviewGraph";
-import {City} from "./City";
+import {ForecastActionListener, ForecastGroup, ForecastsProvider} from './Forecast';
+import {ForecastsHeader} from '../components/ForecastsHeader';
+import {ForecastsList} from '../components/ForecastsList';
+import {ForecastChartistOverviewGraph} from '../components/ForecastChartistOverviewGraph';
+import {City} from './City';
 
 export class ForecastDisplayer implements ForecastActionListener {
     private readonly forecastsProvider: ForecastsProvider;
@@ -30,7 +30,7 @@ export class ForecastDisplayer implements ForecastActionListener {
     }
 
     private buildHeader(frag: DocumentFragment, city: string, timezone: string) {
-        frag.appendChild(new ForecastsHeader(city, timezone).create())
+        frag.appendChild(new ForecastsHeader(city, timezone).create());
     }
 
     private buildGraph(frag: DocumentFragment, groups: Array<ForecastGroup>) {
@@ -48,7 +48,7 @@ export class ForecastDisplayer implements ForecastActionListener {
         const frag: DocumentFragment = document.createDocumentFragment();
         this.buildHeader(frag, groups[0].getCity(), groups[0].getTimezone());
         this.buildGraph(frag, groups);
-        for (let g of groups) {
+        for (const g of groups) {
             this.buildGroup(frag, g);
         }
 

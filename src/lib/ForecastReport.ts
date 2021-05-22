@@ -1,4 +1,4 @@
-import {Forecast, ForeCastData, TempUnit} from "./Forecast";
+import {Forecast, ForeCastData, TempUnit} from './Forecast';
 
 export class ForecastReport implements Forecast {
     readonly temp: number = 0;
@@ -32,17 +32,17 @@ export class ForecastReport implements Forecast {
         else if (!unit || unit === TempUnit.AUTO)
             unit = navigator.language.toLowerCase() === 'en-us' ? TempUnit.F : TempUnit.C;
         switch (unit) {
-            case TempUnit.C:
-                return `${Math.round(this.temp - 273.15)}°C`;
-            case TempUnit.F:
-                return `${Math.round(((this.temp - 273.15) * 1.8) + 32)}°F`;
-            default:
-                return `${Math.round(this.temp)}°K`
+        case TempUnit.C:
+            return `${Math.round(this.temp - 273.15)}°C`;
+        case TempUnit.F:
+            return `${Math.round(((this.temp - 273.15) * 1.8) + 32)}°F`;
+        default:
+            return `${Math.round(this.temp)}°K`;
         }
     }
 
     getLocalDate(): Date {
-        return new Date(this.getLocalTime() + new Date().getTimezoneOffset() * 60 * 1000)
+        return new Date(this.getLocalTime() + new Date().getTimezoneOffset() * 60 * 1000);
     }
 
     getLocalTime(): number {

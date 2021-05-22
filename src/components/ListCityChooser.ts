@@ -1,5 +1,5 @@
-import {CitiesProvider, City} from "../lib/City";
-import {ForecastActionListener} from "../lib/Forecast";
+import {CitiesProvider, City} from '../lib/City';
+import {ForecastActionListener} from '../lib/Forecast';
 
 const cx = {
     list: 'city-chooser',
@@ -17,10 +17,10 @@ export class ListCityChooser {
 
     private ul: HTMLUListElement;
     private lis: Array<HTMLLIElement>;
-    private browsed: number = -1;
-    private pressTimeout: any;
-    private pressDelay: number = 250;
-    private created: boolean = false;
+    private browsed = -1;
+    private pressTimeout;
+    private pressDelay = 250;
+    private created = false;
 
     constructor(forInput: HTMLInputElement, cityProvider: CitiesProvider) {
         this.input = forInput;
@@ -31,24 +31,25 @@ export class ListCityChooser {
         this.ul.classList.add(cx.listHidden);
         this.lis = [];
         this.pressTimeout = setTimeout(() => {
+            // empty on purpose
         }, 0);
-        forInput.addEventListener("click", (event: MouseEvent) => {
+        forInput.addEventListener('click', (event: MouseEvent) => {
             event.stopPropagation();
         });
-        window.document.addEventListener("click", () => {
+        window.document.addEventListener('click', () => {
             this.dissemble();
-        })
+        });
     }
 
-    getCountryFlagUrl(country: string) {
+    getCountryFlagUrl(country: string): string {
         return `https://www.countryflags.io/${country.toLowerCase()}/flat/32.png`;
     }
 
-    setPressDelay(delay: number) {
+    setPressDelay(delay: number): void {
         this.pressDelay = delay;
     }
 
-    addListener(listener: ForecastActionListener) {
+    addListener(listener: ForecastActionListener): void {
         this.listeners.push(listener);
     }
 
@@ -70,7 +71,7 @@ export class ListCityChooser {
             const li: HTMLLIElement = document.createElement('li');
             li.innerText = `${cities[i].name}, ${cities[i].country}`;
             li.classList.add(cx.item);
-            li.addEventListener("click", (ev) => {
+            li.addEventListener('click', () => {
                 this.choose(cities[i]);
             });
             if (i === this.browsed)
@@ -120,7 +121,7 @@ export class ListCityChooser {
             return this.ul;
         this.created = true;
         const fkeys: Array<string> = ['arrowup', 'arrowdown', 'pageup', 'pagedown', 'enter', 'escape'];
-        this.input.addEventListener("keydown", ev => {
+        this.input.addEventListener('keydown', ev => {
             const key: string = ev.key.toLowerCase();
             fkeys.includes(key) && ev.preventDefault();
             if (key === 'enter') {
@@ -129,35 +130,35 @@ export class ListCityChooser {
                     browsed.click();
             }
         });
-        this.input.addEventListener("keyup", ev => {
+        this.input.addEventListener('keyup', ev => {
             const key: string = ev.key.toLowerCase();
             fkeys.includes(key) && ev.preventDefault();
             switch (key) {
-                case fkeys[0]:
-                    this.browse(-1);
-                    break;
-                case fkeys[1]:
-                    this.browse(1);
-                    break;
-                case fkeys[2]:
-                    this.browse(-5);
-                    break;
-                case fkeys[3]:
-                    this.browse(5);
-                    break;
-                case 'escape':
-                    this.dissemble();
-                    break;
-                case 'enter':
-                    break;
-                default:
-                    this.hint();
+            case fkeys[0]:
+                this.browse(-1);
+                break;
+            case fkeys[1]:
+                this.browse(1);
+                break;
+            case fkeys[2]:
+                this.browse(-5);
+                break;
+            case fkeys[3]:
+                this.browse(5);
+                break;
+            case 'escape':
+                this.dissemble();
+                break;
+            case 'enter':
+                break;
+            default:
+                this.hint();
 
             }
         });
-        this.input.addEventListener("focusin", () => {
+        this.input.addEventListener('focusin', () => {
             this.hint();
         });
-        return this.ul
+        return this.ul;
     }
 }
