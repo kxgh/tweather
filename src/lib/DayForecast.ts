@@ -1,4 +1,4 @@
-import {Forecast, ForecastGroup} from "./Forecast";
+import {Forecast, ForecastGroup} from './Forecast';
 
 export class DayForecast implements ForecastGroup {
     readonly forDay: number;
@@ -13,7 +13,7 @@ export class DayForecast implements ForecastGroup {
         this.records = [];
     }
 
-    insertForecast(forecast: Forecast) {
+    insertForecast(forecast: Forecast): void {
         if (forecast.getLocalDate().getDate() !== this.forDay)
             throw new Error('Inserting forecast record into a wrong day!');
         this.records.push(forecast);

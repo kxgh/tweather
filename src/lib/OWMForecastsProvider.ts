@@ -1,14 +1,11 @@
-import axios from "axios";
-import {Forecast, ForecastGroup, ForecastsProvider} from "./Forecast";
-import {ForecastReport} from "./ForecastReport";
-import {DayForecast} from "./DayForecast";
+import axios from 'axios';
+import {Forecast, ForecastGroup, ForecastsProvider} from './Forecast';
+import {ForecastReport} from './ForecastReport';
+import {DayForecast} from './DayForecast';
 
-const API_KEY: string = '314da1c8c5968a0ce3c6c2d12e90bce5';
+const API_KEY = '314da1c8c5968a0ce3c6c2d12e90bce5';
 
 export class OWMForecastsProvider implements ForecastsProvider {
-
-    constructor() {
-    }
 
     private getCityIdUrl(cityId: string | number) {
         return `https://api.openweathermap.org/data/2.5/forecast?id=${'' + cityId}&appid=${API_KEY}`;
@@ -26,7 +23,7 @@ export class OWMForecastsProvider implements ForecastsProvider {
 
     private assignRecsToDays(recs: Array<Forecast>): Array<ForecastGroup> {
         const days: Array<DayForecast> = [];
-        for (let rec of recs) {
+        for (const rec of recs) {
             const recDay: number = rec.getLocalDate().getDate();
             let fd: DayForecast | null = days.filter(d => d.forDay === recDay)[0];
             if (!fd) {
@@ -35,7 +32,7 @@ export class OWMForecastsProvider implements ForecastsProvider {
             }
             fd.insertForecast(rec);
         }
-        return days
+        return days;
     }
 
     private rawListToForecasts(rawList: Array<any>, city: string, country: string, timezone: number): Array<Forecast> {
@@ -59,7 +56,7 @@ export class OWMForecastsProvider implements ForecastsProvider {
             const resp: any = (await axios.get(this.getCityIdUrl(cityId))).data;
             const recs: Array<Forecast> = this.rawListToForecasts(resp.list,
                 resp.city.name, resp.city.country, resp.city.timezone);
-            return this.assignRecsToDays(recs)
+            return this.assignRecsToDays(recs);
         } catch (e) {
             console.error(e);
             return [];

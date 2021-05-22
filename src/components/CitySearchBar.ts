@@ -10,6 +10,6 @@ export class CitySearchBar {
         el.placeholder = 'Search for a location...';
         el.autocomplete = 'off';
         el.classList.add(cx.mainClass);
-        return el
+        return el;
     }
 }
